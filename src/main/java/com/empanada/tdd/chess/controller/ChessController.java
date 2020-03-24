@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.empanada.tdd.chess.manager.Manager;
+import com.empanada.tdd.chess.components.Manager;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.shared.CommandResponse;
 

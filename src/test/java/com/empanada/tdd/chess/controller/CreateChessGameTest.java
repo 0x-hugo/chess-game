@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
-import com.empanada.tdd.chess.manager.Manager;
-import com.empanada.tdd.chess.manager.impl.ChessManager;
+import com.empanada.tdd.chess.components.Manager;
+import com.empanada.tdd.chess.components.impl.ChessManager;
 import com.empanada.tdd.chess.shared.CommandResponse;
 
 @SpringBootTest

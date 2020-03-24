@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.manager;
+package com.empanada.tdd.chess.components;
 
 import com.empanada.tdd.chess.messaging.Position;
 

@@ -5,7 +5,7 @@ import com.empanada.tdd.chess.shared.OperationResult;
 
 public interface Manager {
 
-  void initializeGame();
+  Game initializeGame();
 
   OperationResult move(Command command);
 

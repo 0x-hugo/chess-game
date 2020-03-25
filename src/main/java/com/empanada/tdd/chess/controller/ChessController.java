@@ -40,6 +40,7 @@ public class ChessController {
   @PostMapping("start")
   @ResponseBody
   public ResponseEntity<CommandResponse> createGame() {
+    manager.initializeGame();
     return new ResponseEntity<>(CommandResponse.of("Chess game has been created"), HttpStatus.OK);
   }
 

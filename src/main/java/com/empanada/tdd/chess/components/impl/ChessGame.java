@@ -11,6 +11,7 @@ public class ChessGame implements Game {
 
   Table table;
   Rules rules;
+  String state;
 
   public static ChessGame of(Table table, Rules rules) {
     return new ChessGame(table, rules);
@@ -24,12 +25,14 @@ public class ChessGame implements Game {
   private ChessGame() {
   }
 
-  public void initializeGame() {
-//    table.init(rules.getInit());
+  @Override
+  public Game initialize() {
+    setupTable();
+    return this;
   }
 
-  @Override
-  public void initialize() {
+  private void setupTable() {
+    table.init();
   }
 
 }

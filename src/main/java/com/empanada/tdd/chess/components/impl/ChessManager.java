@@ -25,8 +25,9 @@ public class ChessManager implements Manager {
   }
 
   @Override
-  public void initializeGame() {
+  public Game initializeGame() {
     game.initialize();
+    return game;
   }
 
   @Override

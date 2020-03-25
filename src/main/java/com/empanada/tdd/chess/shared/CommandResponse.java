@@ -5,7 +5,7 @@ public class CommandResponse {
   private String message;
 
   // TODO: refactorizar y pasarlo a properties
-  private CommandResponse of(String message) {
+  public static CommandResponse of(String message) {
     final CommandResponse cResponse = new CommandResponse(message);
     return cResponse;
   }

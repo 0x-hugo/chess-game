@@ -1,0 +1,35 @@
+package com.empanada.tdd.chess.components.impl;
+
+import org.springframework.stereotype.Component;
+
+import com.empanada.tdd.chess.components.Game;
+import com.empanada.tdd.chess.components.Rules;
+import com.empanada.tdd.chess.model.table.Table;
+
+@Component("game.chess")
+public class ChessGame implements Game {
+
+  Table table;
+  Rules rules;
+
+  public static ChessGame of(Table table, Rules rules) {
+    return new ChessGame(table, rules);
+  }
+
+  private ChessGame(Table table, Rules rules) {
+    this.table = table;
+    this.rules = rules;
+  }
+
+  private ChessGame() {
+  }
+
+  public void initializeGame() {
+//    table.init(rules.getInit());
+  }
+
+  @Override
+  public void initialize() {
+  }
+
+}

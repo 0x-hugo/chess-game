@@ -1,11 +1,12 @@
 package com.empanada.tdd.chess.components;
 
-import com.empanada.tdd.chess.messaging.Position;
+import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.shared.OperationResult;
 
 public interface Manager {
 
   void initializeGame();
 
-  void move(Position origin, Position destiny);
+  OperationResult move(Command command);
 
 }

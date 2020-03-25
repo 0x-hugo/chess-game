@@ -8,13 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
 import com.empanada.tdd.chess.components.Manager;
+import com.empanada.tdd.chess.components.impl.ChessGame;
 import com.empanada.tdd.chess.components.impl.ChessManager;
+import com.empanada.tdd.chess.components.impl.ChessRules;
+import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.CommandResponse;
 
 @SpringBootTest
 public class CreateChessGameTest {
 
   ChessController chessAPI;
+  ChessGame chessGame;
   Manager manager;
 
   // TODO: Ver de cambiar los status code por unos mas adecuados
@@ -23,7 +27,8 @@ public class CreateChessGameTest {
 
   @BeforeEach
   public void startup() {
-    manager = new ChessManager();
+    chessGame = ChessGame.of(new ChessTable(), new ChessRules());
+    manager = new ChessManager(chessGame);
     chessAPI = new ChessController(manager);
   }
 
@@ -31,15 +36,16 @@ public class CreateChessGameTest {
   public void createGameHappyCase() {
     final ResponseEntity<CommandResponse> response = chessAPI.createGame();
 
-    assertEquals(response.getStatusCode(), SUCCESSFUL_STATUS_CODE);
-    assertEquals(response.getBody(), "Chess game has been created");
+    assertEquals(response.getStatusCodeValue(), SUCCESSFUL_STATUS_CODE);
+    assertEquals(response.getBody().getMessage(), "Chess game has been created");
   }
 
-  @Test
-  public void createGameBadCase() {
-    final ResponseEntity<CommandResponse> response = chessAPI.createGame();
-
-    assertEquals(response.getStatusCode(), FAIL_STATUS_CODE);
-    assertEquals(response.getBody(), "Hubo quilombo");
-  }
+  // TODO: no se me ocurre que validar para que falle..
+//  @Test
+//  public void createGameBadCase() {
+//    final ResponseEntity<CommandResponse> response = chessAPI.createGame();
+//
+//    assertEquals(response.getStatusCodeValue(), FAIL_STATUS_CODE);
+//    assertEquals(response.getBody().getMessage(), "Hubo quilombo");
+//  }
 }

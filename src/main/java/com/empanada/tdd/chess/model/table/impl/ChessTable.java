@@ -3,13 +3,13 @@ package com.empanada.tdd.chess.model.table.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.empanada.tdd.chess.model.Pieces.Piece;
-import com.empanada.tdd.chess.model.Pieces.impl.Bishop;
-import com.empanada.tdd.chess.model.Pieces.impl.King;
-import com.empanada.tdd.chess.model.Pieces.impl.Knight;
-import com.empanada.tdd.chess.model.Pieces.impl.Pawn;
-import com.empanada.tdd.chess.model.Pieces.impl.Queen;
-import com.empanada.tdd.chess.model.Pieces.impl.Rook;
+import com.empanada.tdd.chess.model.pieces.Piece;
+import com.empanada.tdd.chess.model.pieces.impl.Bishop;
+import com.empanada.tdd.chess.model.pieces.impl.King;
+import com.empanada.tdd.chess.model.pieces.impl.Knight;
+import com.empanada.tdd.chess.model.pieces.impl.Pawn;
+import com.empanada.tdd.chess.model.pieces.impl.Queen;
+import com.empanada.tdd.chess.model.pieces.impl.Rook;
 import com.empanada.tdd.chess.model.table.SquareBoundaries;
 import com.empanada.tdd.chess.model.table.Table;
 

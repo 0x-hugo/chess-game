@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import com.empanada.tdd.chess.components.Game;
 import com.empanada.tdd.chess.components.Manager;
 import com.empanada.tdd.chess.components.impl.ChessGame;
 import com.empanada.tdd.chess.components.impl.ChessManager;
@@ -18,7 +19,7 @@ import com.empanada.tdd.chess.shared.CommandResponse;
 public class CreateChessGameTest {
 
   ChessController chessAPI;
-  ChessGame chessGame;
+  Game chessGame;
   Manager manager;
 
   // TODO: Ver de cambiar los status code por unos mas adecuados

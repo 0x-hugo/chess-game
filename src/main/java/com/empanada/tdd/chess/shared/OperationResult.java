@@ -1,27 +1,34 @@
 package com.empanada.tdd.chess.shared;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 public class OperationResult {
 
-  private Integer status;
+  private Integer statusCode;
 
-  public static OperationResult of(Integer status) {
-    final OperationResult operationResult = new OperationResult(status);
+  public static OperationResult of(Integer error) {
+    final OperationResult operationResult = new OperationResult(error);
     return operationResult;
   }
 
-  private OperationResult(Integer status) {
-    this.status = status;
+  private OperationResult(Integer code) {
+    this.statusCode = code;
   }
 
   private OperationResult() {
   }
 
-  public Integer getState() {
-    return status;
+  public Integer getStatusCode() {
+    return statusCode;
   }
 
   public boolean isValid() {
-    return status >= 400;
+    return statusCode >= 400;
+  }
+
+  public ResponseEntity<CommandResponse> generateCommandResponse() {
+    return new ResponseEntity<>(HttpStatus.resolve(statusCode));
   }
 
 }

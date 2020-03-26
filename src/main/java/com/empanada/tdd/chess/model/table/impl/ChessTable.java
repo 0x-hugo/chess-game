@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.empanada.tdd.chess.messaging.Position;
+import com.empanada.tdd.chess.model.pieces.Piece;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
 import com.empanada.tdd.chess.model.pieces.impl.Knight;
@@ -61,12 +62,27 @@ public class ChessTable implements Table {
 
   }
 
-  private void putPawnPieces(int start) {
-
+  @Override
+  public Cell getCellAt(Position position) {
+    return null;
   }
 
-  private void putSpecialPieces(int start) {
+  @Override
+  public Cell getCellAt(Character x, Integer y) {
+    return null;
+  }
 
+  @Override
+  public Piece getPieceAt(Position position) {
+    return null;
+  }
+
+  @Override
+  public void killPiece(Position position) {
+  }
+
+  @Override
+  public void movePiece(Position origin, Position destiny) {
   }
 
 }

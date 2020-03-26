@@ -34,11 +34,7 @@ public class ChessController {
   @ResponseBody
   public ResponseEntity<CommandResponse> move(@ModelAttribute Command command) {
     final OperationResult result = manager.move(command);
-
-    if (result.getState() >= HttpStatus.BAD_REQUEST.value())
-      new ResponseEntity<CommandResponse>(HttpStatus.BAD_REQUEST);
-
-    return new ResponseEntity<>(HttpStatus.OK);
+    return result.generateCommandResponse();
   }
 
   @PostMapping("start")
@@ -48,7 +44,4 @@ public class ChessController {
     return new ResponseEntity<>(CommandResponse.of("Chess game has been created"), HttpStatus.OK);
   }
 
-  public Manager getManager() {
-    return manager;
-  }
 }

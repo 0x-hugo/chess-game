@@ -4,4 +4,9 @@ import com.empanada.tdd.chess.model.pieces.Piece;
 
 public class Knight implements Piece {
 
+  @Override
+  public String draw() {
+    return null;
+  }
+
 }

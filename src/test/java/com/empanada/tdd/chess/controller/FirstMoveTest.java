@@ -39,6 +39,18 @@ public class FirstMoveTest {
   }
 
   @Test
+  public void invalidPosition() {
+    final Position invalid = Position.of('X', 9);
+    final Position destiny = Position.of('A', 3);
+    final Command invalidMovement = Command.of(invalid, destiny);
+
+    final ResponseEntity<CommandResponse> response = chessAPI.move(invalidMovement);
+
+    assertEquals(response.getStatusCodeValue(), FAIL_STATUS_CODE);
+    assertEquals(response.getBody().getMessage(), "Invalid position");
+  }
+
+  @Test
   public void movePieceOK() {
     final Position pawn = Position.of('D', 2);
     final Position destiny = Position.of('D', 3);

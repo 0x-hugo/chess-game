@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.controller;
+package com.empanada.tdd.chess.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,8 +12,9 @@ import com.empanada.tdd.chess.components.Manager;
 import com.empanada.tdd.chess.components.impl.ChessGame;
 import com.empanada.tdd.chess.components.impl.ChessManager;
 import com.empanada.tdd.chess.components.impl.ChessRules;
+import com.empanada.tdd.chess.controllers.ChessController;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
-import com.empanada.tdd.chess.shared.CommandResponse;
+import com.empanada.tdd.chess.shared.Response;
 
 @SpringBootTest
 public class CreateChessGameTest {
@@ -35,7 +36,7 @@ public class CreateChessGameTest {
 
   @Test
   public void createGameHappyCase() {
-    final ResponseEntity<CommandResponse> response = chessAPI.createGame();
+    final ResponseEntity<Response> response = chessAPI.createGame();
 
     assertEquals(response.getStatusCodeValue(), SUCCESSFUL_STATUS_CODE);
     assertEquals(response.getBody().getMessage(), "Chess game has been created");

@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.controller;
+package com.empanada.tdd.chess.controllers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.empanada.tdd.chess.components.Manager;
-import com.empanada.tdd.chess.messaging.Command;
-import com.empanada.tdd.chess.shared.CommandResponse;
 import com.empanada.tdd.chess.shared.OperationResult;
+import com.empanada.tdd.chess.shared.Request;
+import com.empanada.tdd.chess.shared.Response;
 
 @Controller
 @RequestMapping(value = "/")
@@ -32,16 +32,16 @@ public class ChessController {
 
   @PostMapping
   @ResponseBody
-  public ResponseEntity<CommandResponse> move(@ModelAttribute Command command) {
+  public ResponseEntity<Response> move(@ModelAttribute Request command) {
     final OperationResult result = manager.move(command);
     return result.generateCommandResponse();
   }
 
   @PostMapping("start")
   @ResponseBody
-  public ResponseEntity<CommandResponse> createGame() {
+  public ResponseEntity<Response> createGame() {
     manager.initializeGame();
-    return new ResponseEntity<>(CommandResponse.of("Chess game has been created"), HttpStatus.OK);
+    return new ResponseEntity<>(Response.of("Chess game has been created"), HttpStatus.OK);
   }
 
 }

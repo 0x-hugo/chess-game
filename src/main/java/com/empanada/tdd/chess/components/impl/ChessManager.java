@@ -10,14 +10,13 @@ import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.messaging.Position;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.OperationResult;
+import com.empanada.tdd.chess.shared.OperationStatus;
+import com.empanada.tdd.chess.shared.Request;
 
 @Component("manager.chess")
 public class ChessManager implements Manager {
 
   private final Game game;
-
-  private final Integer BAD_OPERATION_STATUS = 400;
-  private final Integer OUT_OF_BOUND_STATUS = 400;
 
   @Autowired
   public ChessManager(@Qualifier("game.chess") Game gameImpl) {
@@ -30,10 +29,21 @@ public class ChessManager implements Manager {
   }
 
   @Override
-  public OperationResult move(Command command) {
-    if (!isValid(command))
-      return OperationResult.of(OUT_OF_BOUND_STATUS);
+  public OperationResult move(Request request) {
+    try {
+      final Command command = toCommand(request);
 
+      // To evaluate with rules
+      if (!isValid(command))
+        return OperationResult.of(OperationStatus.OUT_OF_BOUNDS);
+    } catch (final Exception exception) {
+      return OperationResult.of(OperationStatus.INVALID_MOVE);
+    }
+
+    return OperationResult.of(OperationStatus.OK);
+  }
+
+  private Command toCommand(Request request) {
     return null;
   }
 

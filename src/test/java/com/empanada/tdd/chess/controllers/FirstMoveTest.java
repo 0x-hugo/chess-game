@@ -1,36 +1,41 @@
-package com.empanada.tdd.chess.controller;
+package com.empanada.tdd.chess.controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.nio.charset.Charset;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.empanada.tdd.chess.components.Manager;
-import com.empanada.tdd.chess.components.impl.ChessGame;
-import com.empanada.tdd.chess.components.impl.ChessManager;
-import com.empanada.tdd.chess.components.impl.ChessRules;
-import com.empanada.tdd.chess.messaging.Command;
-import com.empanada.tdd.chess.messaging.Position;
-import com.empanada.tdd.chess.model.table.impl.ChessTable;
-import com.empanada.tdd.chess.shared.CommandResponse;
+import com.empanada.tdd.chess.controllers.ChessController;
+import com.empanada.tdd.chess.shared.Request;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class FirstMoveTest {
 
+  MockMvc mockMvc;
   ChessController chessAPI;
-  Manager manager;
-  ChessGame chessGame;
 
-  private final int SUCCESSFUL_STATUS_CODE = 200;
-  private final int FAIL_STATUS_CODE = 400;
+  public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+  public static final String playEndpoint = "/";
 
   @BeforeEach
-  public void startup() {
-    chessGame = ChessGame.of(new ChessTable(), new ChessRules());
-    manager = new ChessManager(chessGame);
-    chessAPI = new ChessController(manager);
+  @Autowired
+  public void startup(MockMvc mockMvcInstance, ChessController apiImpl) {
+    mockMvc = mockMvcInstance;
+    chessAPI = apiImpl;
     setupScenarioForFirstMove();
   }
 
@@ -39,63 +44,70 @@ public class FirstMoveTest {
   }
 
   @Test
-  public void invalidPosition() {
-    final Position invalid = Position.of('X', 9);
-    final Position destiny = Position.of('A', 3);
-    final Command invalidMovement = Command.of(invalid, destiny);
+  public void invalidPosition() throws Exception {
+    final Request invalidRequest = new Request('X', '9', 'A', '3');
 
-    final ResponseEntity<CommandResponse> response = chessAPI.move(invalidMovement);
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(invalidRequest)))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string(containsString("Invalid position")));
+  }
 
-    assertEquals(response.getStatusCodeValue(), FAIL_STATUS_CODE);
-    assertEquals(response.getBody().getMessage(), "Invalid position");
+  private String asJsonString(Request request) {
+    try {
+      return new ObjectMapper().writeValueAsString(request);
+    } catch (final Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Test
-  public void movePieceOK() {
-    final Position pawn = Position.of('D', 2);
-    final Position destiny = Position.of('D', 3);
-    final Command validMovement = Command.of(pawn, destiny);
+  public void movePieceOK() throws Exception {
+    final Request validRequest = new Request('D', '2', 'D', '3');
 
-    final ResponseEntity<CommandResponse> response = chessAPI.move(validMovement);
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(validRequest)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString("Todo ok")));
 
-    assertEquals(response.getStatusCodeValue(), SUCCESSFUL_STATUS_CODE);
-    assertEquals(response.getBody().getMessage(), "Todo ok");
   }
 
   @Test
-  public void movePieceLowerCaseOK() {
-    final Position pawn = Position.of('d', 2);
-    final Position destiny = Position.of('d', 3);
-    final Command validMovement = Command.of(pawn, destiny);
+  public void movePieceLowerCaseOK() throws Exception {
+    final Request validRequest = new Request('d', '2', 'd', '3');
 
-    final ResponseEntity<CommandResponse> response = chessAPI.move(validMovement);
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(validRequest)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString("Todo ok")));
 
-    assertEquals(response.getStatusCodeValue(), SUCCESSFUL_STATUS_CODE);
-    assertEquals(response.getBody().getMessage(), "Todo ok");
   }
 
   @Test
-  public void invalidMove() {
-    final Position bishop = Position.of('F', 8);
-    final Position destiny = Position.of('D', 3);
-    final Command invalidMovement = Command.of(bishop, destiny);
+  public void invalidMove() throws Exception {
+    final Request invalidRequest = new Request('F', '8', 'D', '3');
 
-    final ResponseEntity<CommandResponse> response = chessAPI.move(invalidMovement);
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(invalidRequest)))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string(containsString("Invalid move")));
 
-    assertEquals(response.getStatusCodeValue(), FAIL_STATUS_CODE);
-    assertEquals(response.getBody().getMessage(), "invalid move");
   }
 
   @Test
-  public void outOfBoundMove() {
-    final Position bishop = Position.of('F', 8);
-    final Position destiny = Position.of('D', 9);
-    final Command invalidMovement = Command.of(bishop, destiny);
+  public void outOfBoundMove() throws Exception {
+    final Request invalidRequest = new Request('F', '8', 'D', '9');
 
-    final ResponseEntity<CommandResponse> response = chessAPI.move(invalidMovement);
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(invalidRequest)))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string(containsString("out of bounds")));
 
-    assertEquals(response.getStatusCodeValue(), FAIL_STATUS_CODE);
-    assertEquals(response.getBody().getMessage(), "out of bounds");
   }
 
 }

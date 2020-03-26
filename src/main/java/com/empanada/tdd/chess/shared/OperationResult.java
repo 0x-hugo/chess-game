@@ -5,30 +5,29 @@ import org.springframework.http.ResponseEntity;
 
 public class OperationResult {
 
-  private Integer statusCode;
+  private OperationStatus status;
 
-  public static OperationResult of(Integer error) {
-    final OperationResult operationResult = new OperationResult(error);
-    return operationResult;
+  public static OperationResult of(OperationStatus status) {
+    return new OperationResult(status);
   }
 
-  private OperationResult(Integer code) {
-    this.statusCode = code;
+  private OperationResult(OperationStatus status) {
+    this.status = status;
   }
 
   private OperationResult() {
   }
 
-  public Integer getStatusCode() {
-    return statusCode;
+  public OperationStatus getCurrentStatus() {
+    return status;
   }
 
-  public boolean isValid() {
-    return statusCode >= 400;
+  public boolean isSuccessful() {
+    return status.getValue() >= 200 && status.getValue() < 300;
   }
 
-  public ResponseEntity<CommandResponse> generateCommandResponse() {
-    return new ResponseEntity<>(HttpStatus.resolve(statusCode));
+  public ResponseEntity<Response> generateCommandResponse() {
+    return new ResponseEntity<>(HttpStatus.resolve(status.getValue()));
   }
 
 }

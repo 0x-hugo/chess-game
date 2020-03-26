@@ -1,59 +1,72 @@
 package com.empanada.tdd.chess.model.table.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.empanada.tdd.chess.model.pieces.Piece;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.empanada.tdd.chess.messaging.Position;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
 import com.empanada.tdd.chess.model.pieces.impl.Knight;
 import com.empanada.tdd.chess.model.pieces.impl.Pawn;
 import com.empanada.tdd.chess.model.pieces.impl.Queen;
 import com.empanada.tdd.chess.model.pieces.impl.Rook;
-import com.empanada.tdd.chess.model.table.SquareBoundaries;
+import com.empanada.tdd.chess.model.table.Cell;
 import com.empanada.tdd.chess.model.table.Table;
 
+/**
+ * Table only knows init game and boundaries
+ */
 public class ChessTable implements Table {
 
-  Map<Cell, Piece> cells;
-  SquareBoundaries boundaries;
+  private static final Logger logger = LogManager.getLogger(ChessTable.class.getName());
+
+  List<Cell> cells;
+  ChessCoordenates boundaries;
 
   @Override
   public void init() {
-    cells = new HashMap<>();
-    initializePositionsOfPieces();
+    cells = new ArrayList<>();
+    initializePositions();
   }
 
-  private void initializePositionsOfPieces() {
-    for (int start = SquareBoundaries.start; start <= SquareBoundaries.end; start++) {
-      if (start == 1 || start == 8) {
-        putSpecialPieces(start);
-      } else if (start == 2 || start == 7) {
-        putPawnPieces(start);
+  private void initializePositions() {
+    for (final Integer y : ChessCoordenates.vertical) {
+      for (final Character x : ChessCoordenates.horizontal) {
+        if (y == 1 || y == 8) {
+          if (x == 'A' || x == 'H')
+            cells.add(Cell.of(Position.of(x, y), new Rook()));
+          else if (x == 'B' || x == 'G')
+            cells.add(Cell.of(Position.of(x, y), new Knight()));
+          else if (x == 'C' || x == 'F')
+            cells.add(Cell.of(Position.of(x, y), new Bishop()));
+          else if (x == 'D')
+            cells.add(Cell.of(Position.of(x, y), new King()));
+          else if (x == 'E')
+            cells.add(Cell.of(Position.of(x, y), new Queen()));
+        } else if (y == 2 || y == 7) {
+          cells.add(Cell.of(Position.of(x, y), new Pawn()));
+        } else {
+          cells.add(Cell.of(Position.of(x, y)));
+        }
+
+//        logger.debug(x.toString() + y.toString() + ", ");
+        System.out.print(x.toString() + y.toString() + ", ");
       }
+//      logger.debug("");
+      System.out.println();
     }
+
   }
 
   private void putPawnPieces(int start) {
-    cells.put(Cell.of('A', start), new Pawn());
-    cells.put(Cell.of('B', start), new Pawn());
-    cells.put(Cell.of('C', start), new Pawn());
-    cells.put(Cell.of('D', start), new Pawn());
-    cells.put(Cell.of('E', start), new Pawn());
-    cells.put(Cell.of('F', start), new Pawn());
-    cells.put(Cell.of('G', start), new Pawn());
-    cells.put(Cell.of('H', start), new Pawn());
+
   }
 
   private void putSpecialPieces(int start) {
-    cells.put(Cell.of('A', start), new Rook());
-    cells.put(Cell.of('B', start), new Knight());
-    cells.put(Cell.of('C', start), new Bishop());
-    cells.put(Cell.of('D', start), new Queen());
-    cells.put(Cell.of('E', start), new King());
-    cells.put(Cell.of('F', start), new Bishop());
-    cells.put(Cell.of('G', start), new Knight());
-    cells.put(Cell.of('H', start), new Rook());
+
   }
 
 }

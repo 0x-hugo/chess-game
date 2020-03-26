@@ -1,5 +1,7 @@
 package com.empanada.tdd.chess.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import com.empanada.tdd.chess.shared.OperationResult;
 @Controller
 @RequestMapping(value = "/")
 public class ChessController {
+
+  Logger logger = LogManager.getLogger(ChessController.class.getName());
 
   private final Manager manager;
 

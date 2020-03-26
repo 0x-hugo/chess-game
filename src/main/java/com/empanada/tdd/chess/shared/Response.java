@@ -1,20 +1,20 @@
 package com.empanada.tdd.chess.shared;
 
-public class CommandResponse {
+public class Response {
 
   private String message;
 
   // TODO: refactorizar y pasarlo a properties
-  public static CommandResponse of(String message) {
-    final CommandResponse cResponse = new CommandResponse(message);
-    return cResponse;
+  public static Response of(String message) {
+    final Response response = new Response(message);
+    return response;
   }
 
-  private CommandResponse(String message) {
+  private Response(String message) {
     this.message = message;
   }
 
-  private CommandResponse() {
+  private Response() {
   }
 
   public String getMessage() {

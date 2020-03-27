@@ -27,7 +27,10 @@ public class OperationResult {
   }
 
   public ResponseEntity<Response> generateCommandResponse() {
-    return new ResponseEntity<>(HttpStatus.resolve(status.getValue()));
+    final Response responseMessage = Response.of(status.getMessage());
+    final ResponseEntity<Response> resp = new ResponseEntity<>(responseMessage, HttpStatus.resolve(status.getValue()));
+
+    return resp;
   }
 
 }

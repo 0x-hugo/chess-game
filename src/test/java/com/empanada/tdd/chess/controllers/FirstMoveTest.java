@@ -49,7 +49,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates")));
+        .andExpect(content().string(containsString("Invalid coordinates.")));
   }
 
   private String asJsonString(Request request) {
@@ -68,8 +68,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates")));
-
+        .andExpect(content().string(containsString("Invalid coordinates.")));
   }
 
   @Test
@@ -80,7 +79,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(validRequest)))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("OK")));
+        .andExpect(content().string(containsString("OK.")));
 
   }
 
@@ -92,7 +91,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(validRequest)))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("OK")));
+        .andExpect(content().string(containsString("OK.")));
 
   }
 
@@ -104,7 +103,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid move")));
+        .andExpect(content().string(containsString("Invalid move.")));
 
   }
 
@@ -116,7 +115,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(knigthMove)))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("OK")));
+        .andExpect(content().string(containsString("OK.")));
 
   }
 

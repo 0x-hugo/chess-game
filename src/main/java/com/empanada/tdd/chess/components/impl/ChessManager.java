@@ -35,9 +35,9 @@ public class ChessManager implements Manager {
 
       // To evaluate with rules
       if (!isValid(command))
-        return OperationResult.of(OperationStatus.OUT_OF_BOUNDS);
+        return OperationResult.of(OperationStatus.INVALID_MOVE);
     } catch (final Exception exception) {
-      return OperationResult.of(OperationStatus.INVALID_MOVE);
+      return OperationResult.of(OperationStatus.OUT_OF_BOUNDS);
     }
 
     return OperationResult.of(OperationStatus.OK);

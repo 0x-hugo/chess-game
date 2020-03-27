@@ -43,7 +43,7 @@ public class FirstMoveTest {
 
   @Test
   public void invalidCoordinatesOnOrigin() throws Exception {
-    final Request invalidRequest = new Request('X', '9', 'A', '3');
+    final Request invalidRequest = new Request("X", "9", "A", "3");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
@@ -62,7 +62,7 @@ public class FirstMoveTest {
 
   @Test
   public void invalidCoordinatesOnDestiny() throws Exception {
-    final Request invalidRequest = new Request('F', '8', 'D', '9');
+    final Request invalidRequest = new Request("F", "8", "D", "9");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
@@ -73,7 +73,7 @@ public class FirstMoveTest {
 
   @Test
   public void movePieceOK() throws Exception {
-    final Request validRequest = new Request('D', '2', 'D', '3');
+    final Request validRequest = new Request("D", "2", "D", "3");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
@@ -85,7 +85,7 @@ public class FirstMoveTest {
 
   @Test
   public void movePieceLowerCaseOK() throws Exception {
-    final Request validRequest = new Request('d', '2', 'd', '3');
+    final Request validRequest = new Request("d", "2", "d", "3");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
@@ -97,7 +97,7 @@ public class FirstMoveTest {
 
   @Test
   public void invalidMove() throws Exception {
-    final Request invalidRequest = new Request('F', '8', 'D', '3');
+    final Request invalidRequest = new Request("F", "8", "D", "3");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
@@ -109,7 +109,7 @@ public class FirstMoveTest {
 
   @Test
   public void moveKnightTroughPieces() throws Exception {
-    final Request knigthMove = new Request('B', '8', 'C', '6');
+    final Request knigthMove = new Request("B", "8", "C", "6");
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)

@@ -12,6 +12,7 @@ import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.Request;
+import com.empanada.tdd.chess.shared.exceptions.PositionException;
 
 @Component("manager.chess")
 public class ChessManager implements Manager {
@@ -32,11 +33,11 @@ public class ChessManager implements Manager {
   public OperationResult move(Request request) {
     try {
       final Command command = toCommand(request);
-
       // To evaluate with rules
       if (!isValid(command))
         return OperationResult.of(OperationStatus.INVALID_MOVE);
-    } catch (final Exception exception) {
+
+    } catch (final PositionException exception) {
       return OperationResult.of(OperationStatus.OUT_OF_BOUNDS);
     }
 

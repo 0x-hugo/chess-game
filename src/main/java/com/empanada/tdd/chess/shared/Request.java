@@ -2,17 +2,20 @@ package com.empanada.tdd.chess.shared;
 
 public class Request {
 
-  private final Character xOrig;
-  private final Character xDest;
+  private String xOrig;
+  private String xDest;
 
-  private final Character yOrig;
-  private final Character yDest;
+  private String yOrig;
+  private String yDest;
 
-  public static Request of(Character xOrig, Character yOrig, Character xDest, Character yDest) {
+  public static Request of(String xOrig, String yOrig, String xDest, String yDest) {
     return new Request(xOrig, yOrig, xDest, yDest);
   }
 
-  public Request(Character xOrig, Character yOrig, Character xDest, Character yDest) {
+  public Request() {
+  }
+
+  public Request(String xOrig, String yOrig, String xDest, String yDest) {
     super();
     this.xOrig = xOrig;
     this.xDest = xDest;
@@ -20,19 +23,19 @@ public class Request {
     this.yDest = yDest;
   }
 
-  public Character getxOrig() {
+  public String getxOrig() {
     return xOrig;
   }
 
-  public Character getxDest() {
+  public String getxDest() {
     return xDest;
   }
 
-  public Character getyOrig() {
+  public String getyOrig() {
     return yOrig;
   }
 
-  public Character getyDest() {
+  public String getyDest() {
     return yDest;
   }
 

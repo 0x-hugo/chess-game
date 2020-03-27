@@ -40,7 +40,6 @@ public class StartChessGameTest {
     mockMvc.perform(post(startEndpoint))
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string(containsString("Chess game has been created")));
-
   }
 
   // TODO: no se me ocurre que validar para que falle..

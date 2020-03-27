@@ -30,27 +30,26 @@ public class FirstMoveTest {
       MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
   public static final String playEndpoint = "/";
 
-  @BeforeEach
   @Autowired
-  public void startup(MockMvc mockMvcInstance, ChessController apiImpl) {
-    mockMvc = mockMvcInstance;
+  public FirstMoveTest(MockMvc mockInstance, ChessController apiImpl) {
+    mockMvc = mockInstance;
     chessAPI = apiImpl;
-    setupScenarioForFirstMove();
   }
 
-  private void setupScenarioForFirstMove() {
+  @BeforeEach
+  public void startup() {
     chessAPI.createGame();
   }
 
   @Test
-  public void invalidPosition() throws Exception {
+  public void invalidCoordinatesOnOrigin() throws Exception {
     final Request invalidRequest = new Request('X', '9', 'A', '3');
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid position")));
+        .andExpect(content().string(containsString("Invalid coordinates")));
   }
 
   private String asJsonString(Request request) {
@@ -62,6 +61,18 @@ public class FirstMoveTest {
   }
 
   @Test
+  public void invalidCoordinatesOnDestiny() throws Exception {
+    final Request invalidRequest = new Request('F', '8', 'D', '9');
+
+    mockMvc.perform(post(playEndpoint)
+        .contentType(APPLICATION_JSON_UTF8)
+        .content(asJsonString(invalidRequest)))
+        .andExpect(status().is4xxClientError())
+        .andExpect(content().string(containsString("Invalid coordinates")));
+
+  }
+
+  @Test
   public void movePieceOK() throws Exception {
     final Request validRequest = new Request('D', '2', 'D', '3');
 
@@ -69,7 +80,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(validRequest)))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("Todo ok")));
+        .andExpect(content().string(containsString("OK")));
 
   }
 
@@ -81,7 +92,7 @@ public class FirstMoveTest {
         .contentType(APPLICATION_JSON_UTF8)
         .content(asJsonString(validRequest)))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("Todo ok")));
+        .andExpect(content().string(containsString("OK")));
 
   }
 
@@ -98,14 +109,14 @@ public class FirstMoveTest {
   }
 
   @Test
-  public void outOfBoundMove() throws Exception {
-    final Request invalidRequest = new Request('F', '8', 'D', '9');
+  public void moveKnightTroughPieces() throws Exception {
+    final Request knigthMove = new Request('B', '8', 'C', '6');
 
     mockMvc.perform(post(playEndpoint)
         .contentType(APPLICATION_JSON_UTF8)
-        .content(asJsonString(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("out of bounds")));
+        .content(asJsonString(knigthMove)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString("OK")));
 
   }
 

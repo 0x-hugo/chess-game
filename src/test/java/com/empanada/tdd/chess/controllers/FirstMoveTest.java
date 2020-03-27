@@ -16,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.empanada.tdd.chess.controllers.ChessController;
 import com.empanada.tdd.chess.shared.Request;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

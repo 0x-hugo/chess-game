@@ -13,6 +13,7 @@ import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.Request;
+import com.empanada.tdd.chess.shared.exceptions.CommandException;
 import com.empanada.tdd.chess.shared.exceptions.PositionException;
 
 @Component("manager.chess")
@@ -21,8 +22,6 @@ public class ChessManager implements Manager {
   private Game game;
 
   Logger logger = LogManager.getLogger(ChessManager.class.getName());
-
-  final String INVALID_COORDINATES_MSG = "Invalid coordinates.";
 
   @Override
   public OperationResult newGame() {
@@ -39,20 +38,17 @@ public class ChessManager implements Manager {
       final Command command = toCommand(request);
       final ExecutionResult execStatus = game.execute(command);
       return execStatus.toOperationResult();
-    } catch (final PositionException exception) {
-      logger.info(INVALID_COORDINATES_MSG, exception); // TODO: Add which value caused this exception for info
-      return OperationResult.of(OperationStatus.INVALID_COORDINATE);
+    } catch (final CommandException exception) {
+      // TODO: Add which Position caused this exception for info
+      logger.info(OperationStatus.INVALID_COORDINATE, exception);
+      return OperationResult.of(exception.getStatus());
     }
   }
 
-  private Command toCommand(Request request) throws PositionException {
-
-    if (request.getxOrig().length() != 1 || request.getxDest().length() != 1 ||
-        request.getyOrig().length() != 1 || request.getyDest().length() != 1) {
-      throw new PositionException(INVALID_COORDINATES_MSG);
-    }
-
+  private Command toCommand(Request request) throws CommandException {
     try {
+      validateCordinatesLength(request);
+
       final Character xOrig = request.getxOrig().charAt(0);
       final Character xDest = request.getxDest().charAt(0);
       final Integer yOrig = Integer.parseInt(request.getyOrig());
@@ -62,10 +58,15 @@ public class ChessManager implements Manager {
       final ChessCoordinate destination = ChessCoordinate.of(xDest, yDest);
 
       return Command.of(origin, destination);
-    } catch (final NumberFormatException e) {
-      throw new PositionException(INVALID_COORDINATES_MSG);
-    } catch (final PositionException position) {
-      throw position;
+    } catch (NumberFormatException | PositionException e) {
+      throw new CommandException(OperationStatus.INVALID_COORDINATE);
+    }
+  }
+
+  private void validateCordinatesLength(Request request) throws PositionException {
+    if (request.getxOrig().length() != 1 || request.getxDest().length() != 1 ||
+        request.getyOrig().length() != 1 || request.getyDest().length() != 1) {
+      throw new PositionException(OperationStatus.INVALID_COORDINATE);
     }
   }
 }

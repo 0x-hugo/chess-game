@@ -12,7 +12,7 @@ public class ChessCoordinate {
   private Character x;
   private Integer y;
 
-  public static ChessCoordinate of(Character x, Integer y) {
+  public static ChessCoordinate of(Character x, Integer y) throws PositionException {
     final Character upperCaseX = Character.toUpperCase(x);
     if (invalidCoordinates(upperCaseX, y))
       throw new PositionException("Invalid position");

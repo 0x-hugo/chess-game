@@ -3,21 +3,27 @@ package com.empanada.tdd.chess.shared.exceptions;
 import com.empanada.tdd.chess.shared.OperationStatus;
 
 // to refactor in StatusOperations
-public class PositionException extends RuntimeException {
+public class CommandException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
+  OperationStatus status;
 
-  public PositionException(OperationStatus opStatus) {
+  public CommandException(OperationStatus opStatus) {
     super(opStatus.getMessage());
+    status = opStatus;
   }
 
-  public PositionException(String string) {
+  public CommandException(String string) {
     super(string);
   }
 
   @Override
   public String getMessage() {
     return super.getMessage();
+  }
+
+  public OperationStatus getStatus() {
+    return status;
   }
 
 }

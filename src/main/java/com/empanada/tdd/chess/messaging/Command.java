@@ -6,8 +6,7 @@ public class Command {
   private ChessCoordinate destination;
 
   public static Command of(ChessCoordinate origin, ChessCoordinate destination) {
-    final Command command = new Command(origin, destination);
-    return command;
+    return new Command(origin, destination);
   }
 
   private Command(ChessCoordinate origin, ChessCoordinate destination) {

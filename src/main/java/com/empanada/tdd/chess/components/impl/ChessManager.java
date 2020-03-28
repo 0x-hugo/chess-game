@@ -19,7 +19,7 @@ import com.empanada.tdd.chess.shared.exceptions.PositionException;
 @Component("manager.chess")
 public class ChessManager implements Manager {
 
-  private final Game game;
+  private Game game;
 
   Logger logger = LogManager.getLogger(ChessManager.class.getName());
 
@@ -32,7 +32,8 @@ public class ChessManager implements Manager {
 
   @Override
   public OperationResult initializeGame() {
-    if (game.initialize() == null)
+    game = game.initialize();
+    if (game.hasNotStarted())
       return OperationResult.of(OperationStatus.INVALID_INIT_GAME);
     return OperationResult.of(OperationStatus.OK);
   }
@@ -44,7 +45,6 @@ public class ChessManager implements Manager {
   public OperationResult move(Request request) {
     try {
       final Command command = toCommand(request);
-
       game.execute(command);
 
     } catch (final PositionException exception) {

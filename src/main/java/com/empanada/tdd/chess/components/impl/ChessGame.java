@@ -12,7 +12,7 @@ public class ChessGame implements Game {
 
   Table table;
   Rules rules;
-  String state;
+  GameStatus state = GameStatus.NOT_STARTED;
 
   public static ChessGame of(Table table, Rules rules) {
     return new ChessGame(table, rules);
@@ -31,8 +31,10 @@ public class ChessGame implements Game {
     try {
       setupTable();
     } catch (final Exception e) {
+      state = GameStatus.NOT_STARTED;
       return null;
     }
+    state = GameStatus.STARTED;
     return this;
   }
 
@@ -46,6 +48,16 @@ public class ChessGame implements Game {
 //    if (rules.invalidMove(command)) {
 //      
 //    }
+  }
+
+  @Override
+  public boolean hasNotStarted() {
+    return !hasStarted();
+  }
+
+  @Override
+  public boolean hasStarted() {
+    return state == GameStatus.STARTED;
   }
 
 }

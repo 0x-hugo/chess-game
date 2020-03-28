@@ -8,4 +8,8 @@ public interface Game {
 
   void execute(Command command);
 
+  boolean hasNotStarted();
+
+  boolean hasStarted();
+
 }

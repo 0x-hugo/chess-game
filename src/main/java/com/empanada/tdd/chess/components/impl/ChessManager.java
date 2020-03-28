@@ -2,12 +2,11 @@ package com.empanada.tdd.chess.components.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.empanada.tdd.chess.components.Game;
 import com.empanada.tdd.chess.components.Manager;
+import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
@@ -25,34 +24,25 @@ public class ChessManager implements Manager {
 
   final String INVALID_COORDINATES_MSG = "Invalid coordinates.";
 
-  @Autowired
-  public ChessManager(@Qualifier("game.chess") Game gameImpl) {
-    game = ChessGame.of(new ChessTable(), new ChessRules());
-  }
-
   @Override
-  public OperationResult initializeGame() {
+  public OperationResult newGame() {
+    game = ChessGame.of(new ChessTable(), new ChessRuleCheckmate());
     game = game.initialize();
     if (game.hasNotStarted())
       return OperationResult.of(OperationStatus.INVALID_INIT_GAME);
     return OperationResult.of(OperationStatus.OK);
   }
 
-  /**
-   * 
-   * */
   @Override
   public OperationResult move(Request request) {
     try {
       final Command command = toCommand(request);
-      game.execute(command);
-
+      final ExecutionResult execStatus = game.execute(command);
+      return execStatus.toOperationResult();
     } catch (final PositionException exception) {
       logger.info(INVALID_COORDINATES_MSG, exception); // TODO: Add which value caused this exception for info
       return OperationResult.of(OperationStatus.INVALID_COORDINATE);
     }
-
-    return OperationResult.of(OperationStatus.OK);
   }
 
   private Command toCommand(Request request) throws PositionException {

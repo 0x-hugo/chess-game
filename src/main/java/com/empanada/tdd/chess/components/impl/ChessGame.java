@@ -1,26 +1,28 @@
 package com.empanada.tdd.chess.components.impl;
 
-import org.springframework.stereotype.Component;
-
 import com.empanada.tdd.chess.components.Game;
-import com.empanada.tdd.chess.components.Rules;
+import com.empanada.tdd.chess.components.rules.AbstractRule;
+import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheck;
+import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
+import com.empanada.tdd.chess.components.rules.impl.ChessRulePieceMovement;
+import com.empanada.tdd.chess.components.rules.impl.ChessRuleStalemate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.Table;
 
-@Component("game.chess")
 public class ChessGame implements Game {
 
   Table table;
-  Rules rules;
-  GameStatus state = GameStatus.NOT_STARTED;
+  AbstractRule rules;
+  GameStatus state;
 
-  public static ChessGame of(Table table, Rules rules) {
+  public static ChessGame of(Table table, AbstractRule rules) {
     return new ChessGame(table, rules);
   }
 
-  private ChessGame(Table table, Rules rules) {
+  private ChessGame(Table table, AbstractRule rules) {
     this.table = table;
     this.rules = rules;
+    this.state = GameStatus.NOT_STARTED;
   }
 
   private ChessGame() {
@@ -30,11 +32,12 @@ public class ChessGame implements Game {
   public Game initialize() {
     try {
       setupTable();
+      setupRules();
+      state = GameStatus.STARTED;
     } catch (final Exception e) {
       state = GameStatus.NOT_STARTED;
-      return null;
     }
-    state = GameStatus.STARTED;
+
     return this;
   }
 
@@ -42,12 +45,27 @@ public class ChessGame implements Game {
     table.init();
   }
 
-  @Override
-  public void execute(Command command) {
+  private void setupRules() {
+    rules = rules.addRule(new ChessRuleCheckmate())
+        .addRule(new ChessRuleStalemate())
+        .addRule(new ChessRuleCheck())
+        .addRule(new ChessRulePieceMovement());
 
-//    if (rules.invalidMove(command)) {
-//      
-//    }
+  }
+
+  @Override
+  public ExecutionResult execute(Command command) {
+    if (this.hasNotStarted())
+      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED);
+
+    final RuleStatus status = rules.applyRule(command, table);
+    if (status.isInvalid())
+      return ExecutionResult.of(ExecutionStatus.NOT_VALID, status.getMessage());
+
+    final ExecutionResult moveResult = table.move(command);
+
+    return moveResult;
+
   }
 
   @Override

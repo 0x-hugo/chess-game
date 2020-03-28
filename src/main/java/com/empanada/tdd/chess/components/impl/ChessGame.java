@@ -12,16 +12,16 @@ import com.empanada.tdd.chess.model.table.Table;
 public class ChessGame implements Game {
 
   Table table;
-  AbstractRule rules;
+  AbstractRule ruleChain;
   GameStatus state;
 
-  public static ChessGame of(Table table, AbstractRule rules) {
-    return new ChessGame(table, rules);
+  public static ChessGame of(Table table, AbstractRule ruleChain) {
+    return new ChessGame(table, ruleChain);
   }
 
-  private ChessGame(Table table, AbstractRule rules) {
+  private ChessGame(Table table, AbstractRule ruleChain) {
     this.table = table;
-    this.rules = rules;
+    this.ruleChain = ruleChain;
     this.state = GameStatus.NOT_STARTED;
   }
 
@@ -46,7 +46,7 @@ public class ChessGame implements Game {
   }
 
   private void setupRules() {
-    rules = rules.addRule(new ChessRuleCheckmate())
+    ruleChain = ruleChain.addRule(new ChessRuleCheckmate())
         .addRule(new ChessRuleStalemate())
         .addRule(new ChessRuleCheck())
         .addRule(new ChessRulePieceMovement());
@@ -58,7 +58,7 @@ public class ChessGame implements Game {
     if (this.hasNotStarted())
       return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED);
 
-    final RuleStatus status = rules.applyRule(command, table);
+    final RuleStatus status = ruleChain.applyRule(command, table);
     if (status.isInvalid())
       return ExecutionResult.of(ExecutionStatus.NOT_VALID, status.getMessage());
 

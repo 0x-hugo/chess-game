@@ -28,7 +28,6 @@ public class ChessTable implements Table {
   private static final Logger logger = LogManager.getLogger(ChessTable.class.getName());
 
   List<ChessPosition> cells;
-  ChessCoordenates boundaries;
 
   @Override
   public void init() {
@@ -90,6 +89,7 @@ public class ChessTable implements Table {
 
   @Override
   public ExecutionResult move(Command command) {
+
     return ExecutionResult.of(ExecutionStatus.OK);
   }
 

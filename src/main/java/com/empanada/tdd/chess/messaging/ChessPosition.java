@@ -6,16 +6,17 @@ import java.util.List;
 import com.empanada.tdd.chess.model.table.impl.ChessCoordenates;
 import com.empanada.tdd.chess.shared.exceptions.PositionException;
 
-public class Position {
+//TODO: build Position abstraction and use CoordenateObject instead of Character and Integer 
+public class ChessPosition {
 
   private Character x;
   private Integer y;
 
-  public static Position of(Character x, Integer y) {
+  public static ChessPosition of(Character x, Integer y) {
     final Character upperCaseX = Character.toUpperCase(x);
     if (!validCoordenates(x, y))
       throw new PositionException("Invalid position");
-    return new Position(upperCaseX, y);
+    return new ChessPosition(upperCaseX, y);
 
   }
 
@@ -25,13 +26,13 @@ public class Position {
     return (validX.contains(x) && validY.contains(y));
   }
 
-  private Position(Character x, Integer y) {
+  private ChessPosition(Character x, Integer y) {
     super();
     this.x = x;
     this.y = y;
   }
 
-  private Position() {
+  private ChessPosition() {
   }
 
   public Character getX() {

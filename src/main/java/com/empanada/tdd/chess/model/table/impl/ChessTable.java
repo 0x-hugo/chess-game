@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.empanada.tdd.chess.messaging.Position;
+import com.empanada.tdd.chess.messaging.ChessPosition;
 import com.empanada.tdd.chess.model.pieces.Piece;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
@@ -38,19 +38,19 @@ public class ChessTable implements Table {
       for (final Character x : ChessCoordenates.horizontal) {
         if (y == 1 || y == 8) {
           if (x == 'A' || x == 'H')
-            cells.add(Cell.of(Position.of(x, y), new Rook()));
+            cells.add(Cell.of(ChessPosition.of(x, y), new Rook()));
           else if (x == 'B' || x == 'G')
-            cells.add(Cell.of(Position.of(x, y), new Knight()));
+            cells.add(Cell.of(ChessPosition.of(x, y), new Knight()));
           else if (x == 'C' || x == 'F')
-            cells.add(Cell.of(Position.of(x, y), new Bishop()));
+            cells.add(Cell.of(ChessPosition.of(x, y), new Bishop()));
           else if (x == 'D')
-            cells.add(Cell.of(Position.of(x, y), new King()));
+            cells.add(Cell.of(ChessPosition.of(x, y), new King()));
           else if (x == 'E')
-            cells.add(Cell.of(Position.of(x, y), new Queen()));
+            cells.add(Cell.of(ChessPosition.of(x, y), new Queen()));
         } else if (y == 2 || y == 7) {
-          cells.add(Cell.of(Position.of(x, y), new Pawn()));
+          cells.add(Cell.of(ChessPosition.of(x, y), new Pawn()));
         } else {
-          cells.add(Cell.of(Position.of(x, y)));
+          cells.add(Cell.of(ChessPosition.of(x, y)));
         }
 
 //        logger.debug(x.toString() + y.toString() + ", ");
@@ -63,7 +63,7 @@ public class ChessTable implements Table {
   }
 
   @Override
-  public Cell getCellAt(Position position) {
+  public Cell getCellAt(ChessPosition position) {
     return null;
   }
 
@@ -73,16 +73,16 @@ public class ChessTable implements Table {
   }
 
   @Override
-  public Piece getPieceAt(Position position) {
+  public Piece getPieceAt(ChessPosition position) {
     return null;
   }
 
   @Override
-  public void killPiece(Position position) {
+  public void killPiece(ChessPosition position) {
   }
 
   @Override
-  public void movePiece(Position origin, Position destiny) {
+  public void movePiece(ChessPosition origin, ChessPosition destiny) {
   }
 
 }

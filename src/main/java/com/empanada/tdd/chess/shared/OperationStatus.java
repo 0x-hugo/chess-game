@@ -4,7 +4,7 @@ public enum OperationStatus {
   // TODO: refactor to properties
   OK(200, "OK."),
   INVALID_MOVE(402, "Invalid move."),
-  OUT_OF_BOUNDS(406, "Invalid coordinates."),
+  INVALID_COORDINATE(406, "Invalid coordinates."),
   ;
 
   private Integer value;

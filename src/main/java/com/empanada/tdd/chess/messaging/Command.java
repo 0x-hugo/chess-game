@@ -2,15 +2,15 @@ package com.empanada.tdd.chess.messaging;
 
 public class Command {
 
-  private Position origin;
-  private Position destination;
+  private ChessPosition origin;
+  private ChessPosition destination;
 
-  public static Command of(Position origin, Position destiny) {
+  public static Command of(ChessPosition origin, ChessPosition destiny) {
     final Command command = new Command(origin, destiny);
     return command;
   }
 
-  private Command(Position origin, Position destination) {
+  private Command(ChessPosition origin, ChessPosition destination) {
     super();
     this.origin = origin;
     this.destination = destination;
@@ -19,19 +19,19 @@ public class Command {
   private Command() {
   }
 
-  public Position getOrigin() {
+  public ChessPosition getOrigin() {
     return origin;
   }
 
-  public Position getDestination() {
+  public ChessPosition getDestination() {
     return destination;
   }
 
-  public void setDestination(Position destination) {
+  public void setDestination(ChessPosition destination) {
     this.destination = destination;
   }
 
-  public void setOrigin(Position origin) {
+  public void setOrigin(ChessPosition origin) {
     this.origin = origin;
   }
 

@@ -1,6 +1,6 @@
 package com.empanada.tdd.chess.model.table;
 
-import com.empanada.tdd.chess.messaging.Position;
+import com.empanada.tdd.chess.messaging.ChessPosition;
 import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.pieces.Piece;
 
@@ -13,12 +13,12 @@ public class Cell {
   /**
    * sets nullPiece
    */
-  public static Cell of(Position position) {
+  public static Cell of(ChessPosition position) {
     final Piece piece = new NullPiece();
     return new Cell(position.getX(), position.getY(), piece);
   }
 
-  public static Cell of(Position position, Piece piece) {
+  public static Cell of(ChessPosition position, Piece piece) {
     return new Cell(position.getX(), position.getY(), piece);
   }
 
@@ -31,8 +31,8 @@ public class Cell {
   private Cell() {
   }
 
-  public Position getPosition() {
-    return Position.of(x, y);
+  public ChessPosition getPosition() {
+    return ChessPosition.of(x, y);
   }
 
   public Piece getPiece() {

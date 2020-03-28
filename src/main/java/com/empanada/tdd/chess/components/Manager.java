@@ -5,7 +5,7 @@ import com.empanada.tdd.chess.shared.Request;
 
 public interface Manager {
 
-  OperationResult initializeGame();
+  OperationResult newGame();
 
   OperationResult move(Request request);
 

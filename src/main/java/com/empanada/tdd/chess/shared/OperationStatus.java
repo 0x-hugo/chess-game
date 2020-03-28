@@ -11,13 +11,8 @@ public enum OperationStatus {
   private Integer status_code;
   private String message;
 
-  OperationStatus(int i, String message) {
-    status_code = i;
-    this.message = message;
-  }
-
-  OperationStatus(OperationStatus operationStatus, String message) {
-    status_code = operationStatus.getStatusCode();
+  OperationStatus(int code, String message) {
+    status_code = code;
     this.message = message;
   }
 

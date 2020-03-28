@@ -18,7 +18,7 @@ import com.empanada.tdd.chess.shared.Request;
 import com.empanada.tdd.chess.shared.Response;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/chess")
 public class ChessController {
 
   Logger logger = LogManager.getLogger(ChessController.class.getName());
@@ -30,23 +30,22 @@ public class ChessController {
     manager = managerImpl;
   }
 
-  @PostMapping
+  @PostMapping("/start")
+  @ResponseBody
+  public ResponseEntity<Response> createGame() {
+    final OperationResult result = manager.newGame();
+    if (result.isNotSuccesful())
+      return result.generateCommandResponse();
+    return OperationResult.generateCommandResponse("Chess game has been created", HttpStatus.resolve(200));
+  }
+
+  @PostMapping("/")
   @ResponseBody
   public ResponseEntity<Response> move(@RequestBody Request command) {
     final OperationResult result = manager.move(command);
     if (result.isNotSuccesful())
       return result.generateCommandResponse();
     return result.generateCommandResponse(HttpStatus.resolve(200));
-  }
-
-  @PostMapping("start")
-  @ResponseBody
-  public ResponseEntity<Response> createGame() {
-    final OperationResult result = manager.initializeGame();
-    if (result.isNotSuccesful())
-      return result.generateCommandResponse();
-    return OperationResult.generateCommandResponse("Chess game has been created", HttpStatus.resolve(200));
-
   }
 
 }

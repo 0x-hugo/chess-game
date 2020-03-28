@@ -6,7 +6,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.empanada.tdd.chess.components.impl.ExecutionResult;
+import com.empanada.tdd.chess.components.impl.ExecutionStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
+import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.Piece;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
@@ -83,6 +86,11 @@ public class ChessTable implements Table {
 
   @Override
   public void movePiece(ChessCoordinate origin, ChessCoordinate destination) {
+  }
+
+  @Override
+  public ExecutionResult move(Command command) {
+    return ExecutionResult.of(ExecutionStatus.OK);
   }
 
 }

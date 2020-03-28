@@ -29,7 +29,7 @@ public class FirstMoveTest {
   public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
       MediaType.APPLICATION_JSON.getSubtype(),
       Charset.forName("utf8"));
-  public static final String playEndpoint = "/";
+  public static final String playEndpoint = EndpointURL.move.getUrl();
 
   @Autowired
   public FirstMoveTest(MockMvc mockInstance, ChessController apiImpl) {

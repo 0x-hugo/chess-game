@@ -24,7 +24,8 @@ public class StartChessGameTest {
 
   public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
       MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-  private static String startEndpoint = "/start";
+
+  private static String startEndpoint = EndpointURL.create.getUrl();
 
   @Autowired
   StartChessGameTest(MockMvc mockIntance) {

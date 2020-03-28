@@ -27,7 +27,8 @@ public class FirstMoveTest {
   ChessController chessAPI;
 
   public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(),
-      MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+      MediaType.APPLICATION_JSON.getSubtype(),
+      Charset.forName("utf8"));
   public static final String playEndpoint = "/";
 
   @Autowired
@@ -41,34 +42,12 @@ public class FirstMoveTest {
     chessAPI.createGame();
   }
 
-  @Test
-  public void invalidCoordinatesOnOrigin() throws Exception {
-    final Request invalidRequest = new Request("X", "9", "A", "3");
-
-    mockMvc.perform(post(playEndpoint)
-        .contentType(APPLICATION_JSON_UTF8)
-        .content(asJsonString(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
-  }
-
   private String asJsonString(Request request) {
     try {
       return new ObjectMapper().writeValueAsString(request);
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  @Test
-  public void invalidCoordinatesOnDestiny() throws Exception {
-    final Request invalidRequest = new Request("F", "8", "D", "9");
-
-    mockMvc.perform(post(playEndpoint)
-        .contentType(APPLICATION_JSON_UTF8)
-        .content(asJsonString(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
   }
 
   @Test

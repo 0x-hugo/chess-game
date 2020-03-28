@@ -5,18 +5,24 @@ public enum OperationStatus {
   OK(200, "OK."),
   INVALID_MOVE(402, "Invalid move."),
   INVALID_COORDINATE(406, "Invalid coordinates."),
+  INVALID_INIT_GAME(402, "Error on start. Try later."),
   ;
 
-  private Integer value;
+  private Integer status_code;
   private String message;
 
   OperationStatus(int i, String message) {
-    value = i;
+    status_code = i;
     this.message = message;
   }
 
-  public Integer getValue() {
-    return value;
+  OperationStatus(OperationStatus operationStatus, String message) {
+    status_code = operationStatus.getStatusCode();
+    this.message = message;
+  }
+
+  public Integer getStatusCode() {
+    return status_code;
   }
 
   public String getMessage() {

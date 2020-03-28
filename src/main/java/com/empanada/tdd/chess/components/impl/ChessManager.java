@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.empanada.tdd.chess.components.Game;
 import com.empanada.tdd.chess.components.Manager;
-import com.empanada.tdd.chess.messaging.ChessPosition;
+import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.OperationResult;
@@ -31,8 +31,10 @@ public class ChessManager implements Manager {
   }
 
   @Override
-  public void initializeGame() {
-    game.initialize();
+  public OperationResult initializeGame() {
+    if (game.initialize() == null)
+      return OperationResult.of(OperationStatus.INVALID_INIT_GAME);
+    return OperationResult.of(OperationStatus.OK);
   }
 
   /**
@@ -43,7 +45,7 @@ public class ChessManager implements Manager {
     try {
       final Command command = toCommand(request);
 
-//      game.excecute(command);
+      game.execute(command);
 
     } catch (final PositionException exception) {
       logger.info(INVALID_COORDINATES_MSG, exception); // TODO: Add which value caused this exception for info
@@ -66,8 +68,8 @@ public class ChessManager implements Manager {
       final Integer yOrig = Integer.parseInt(request.getyOrig());
       final Integer yDest = Integer.parseInt(request.getyDest());
 
-      final ChessPosition origin = ChessPosition.of(xOrig, yOrig);
-      final ChessPosition destination = ChessPosition.of(xDest, yDest);
+      final ChessCoordinate origin = ChessCoordinate.of(xOrig, yOrig);
+      final ChessCoordinate destination = ChessCoordinate.of(xDest, yDest);
 
       return Command.of(origin, destination);
     } catch (final NumberFormatException e) {

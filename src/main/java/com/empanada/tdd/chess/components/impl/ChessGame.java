@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.empanada.tdd.chess.components.Game;
 import com.empanada.tdd.chess.components.Rules;
+import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.Table;
 
 @Component("game.chess")
@@ -27,12 +28,24 @@ public class ChessGame implements Game {
 
   @Override
   public Game initialize() {
-    setupTable();
+    try {
+      setupTable();
+    } catch (final Exception e) {
+      return null;
+    }
     return this;
   }
 
   private void setupTable() {
     table.init();
+  }
+
+  @Override
+  public void execute(Command command) {
+
+//    if (rules.invalidMove(command)) {
+//      
+//    }
   }
 
 }

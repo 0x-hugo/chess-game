@@ -6,8 +6,7 @@ public class Response {
 
   // TODO: refactorizar y pasarlo a properties
   public static Response of(String message) {
-    final Response response = new Response(message);
-    return response;
+    return new Response(message);
   }
 
   private Response(String message) {

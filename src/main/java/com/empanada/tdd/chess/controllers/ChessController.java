@@ -34,14 +34,19 @@ public class ChessController {
   @ResponseBody
   public ResponseEntity<Response> move(@RequestBody Request command) {
     final OperationResult result = manager.move(command);
-    return result.generateCommandResponse();
+    if (result.isNotSuccesful())
+      return result.generateCommandResponse();
+    return result.generateCommandResponse(HttpStatus.resolve(200));
   }
 
   @PostMapping("start")
   @ResponseBody
   public ResponseEntity<Response> createGame() {
-    manager.initializeGame();
-    return new ResponseEntity<>(Response.of("Chess game has been created"), HttpStatus.OK);
+    final OperationResult result = manager.initializeGame();
+    if (result.isNotSuccesful())
+      return result.generateCommandResponse();
+    return OperationResult.generateCommandResponse("Chess game has been created", HttpStatus.resolve(200));
+
   }
 
 }

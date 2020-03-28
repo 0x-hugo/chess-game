@@ -22,15 +22,29 @@ public class OperationResult {
     return status;
   }
 
+  public boolean isNotSuccesful() {
+    return !(isSuccessful());
+  }
+
   public boolean isSuccessful() {
-    return status.getValue() >= 200 && status.getValue() < 300;
+    return status.getStatusCode() >= 200 && status.getStatusCode() < 300;
+  }
+
+  public String getStatusMessage() {
+    return status.getMessage();
   }
 
   public ResponseEntity<Response> generateCommandResponse() {
     final Response responseMessage = Response.of(status.getMessage());
-    final ResponseEntity<Response> resp = new ResponseEntity<>(responseMessage, HttpStatus.resolve(status.getValue()));
+    return new ResponseEntity<>(responseMessage, HttpStatus.resolve(status.getStatusCode()));
+  }
 
-    return resp;
+  public ResponseEntity<Response> generateCommandResponse(HttpStatus status) {
+    return new ResponseEntity<>(Response.of(getStatusMessage()), status);
+  }
+
+  public static ResponseEntity<Response> generateCommandResponse(String message, HttpStatus status) {
+    return new ResponseEntity<>(Response.of(message), status);
   }
 
 }

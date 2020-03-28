@@ -1,20 +1,20 @@
 package com.empanada.tdd.chess.model.table;
 
-import com.empanada.tdd.chess.messaging.ChessPosition;
+import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.model.pieces.Piece;
 
 public interface Table {
 
   void init();
 
-  Cell getCellAt(ChessPosition position);
+  ChessPosition getCellAt(ChessCoordinate position);
 
-  Cell getCellAt(Character x, Integer y);
+  ChessPosition getCellAt(Character x, Integer y);
 
-  Piece getPieceAt(ChessPosition position);
+  Piece getPieceAt(ChessCoordinate position);
 
-  void killPiece(ChessPosition position);
+  void killPiece(ChessCoordinate position);
 
-  void movePiece(ChessPosition origin, ChessPosition destiny);
+  void movePiece(ChessCoordinate origin, ChessCoordinate destination);
 
 }

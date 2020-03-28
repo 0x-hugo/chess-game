@@ -1,10 +1,10 @@
 package com.empanada.tdd.chess.model.table;
 
-import com.empanada.tdd.chess.messaging.ChessPosition;
+import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.pieces.Piece;
 
-public class Cell {
+public class ChessPosition {
 
   private Character x;
   private Integer y;
@@ -13,26 +13,26 @@ public class Cell {
   /**
    * sets nullPiece
    */
-  public static Cell of(ChessPosition position) {
+  public static ChessPosition of(ChessCoordinate coordinate) {
     final Piece piece = new NullPiece();
-    return new Cell(position.getX(), position.getY(), piece);
+    return new ChessPosition(coordinate.getX(), coordinate.getY(), piece);
   }
 
-  public static Cell of(ChessPosition position, Piece piece) {
-    return new Cell(position.getX(), position.getY(), piece);
+  public static ChessPosition of(ChessCoordinate coordinate, Piece piece) {
+    return new ChessPosition(coordinate.getX(), coordinate.getY(), piece);
   }
 
-  private Cell(Character x, Integer y, Piece piece) {
+  private ChessPosition(Character x, Integer y, Piece piece) {
     this.x = x;
     this.y = y;
     this.piece = piece;
   }
 
-  private Cell() {
+  private ChessPosition() {
   }
 
-  public ChessPosition getPosition() {
-    return ChessPosition.of(x, y);
+  public ChessCoordinate getPosition() {
+    return ChessCoordinate.of(x, y);
   }
 
   public Piece getPiece() {

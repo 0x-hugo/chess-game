@@ -1,18 +1,15 @@
 package com.empanada.tdd.chess.model.pieces.impl;
 
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.model.pieces.Piece;
 
 public class Rook extends Piece {
 
-  @Override
-  public String draw() {
-    return null;
+  public Rook() {
   }
 
   @Override
-  public boolean canMove(ChessCoordinate chessPosition, ChessCoordinate destination) {
-    return true;
+  public String draw() {
+    return null;
   }
 
 }

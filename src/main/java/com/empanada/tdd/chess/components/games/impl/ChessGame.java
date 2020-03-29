@@ -19,13 +19,12 @@ public class ChessGame implements Game {
   AbstractRule ruleChain;
   GameStatus state;
 
-  public static ChessGame of(Table table, AbstractRule ruleChain) {
-    return new ChessGame(table, ruleChain);
+  public static ChessGame of(Table table) {
+    return new ChessGame(table);
   }
 
-  private ChessGame(Table table, AbstractRule ruleChain) {
+  private ChessGame(Table table) {
     this.table = table;
-    this.ruleChain = ruleChain;
     this.state = GameStatus.NOT_STARTED;
   }
 
@@ -50,7 +49,7 @@ public class ChessGame implements Game {
   }
 
   private void setupRules() {
-    ruleChain = ruleChain.addRule(new ChessRuleCheckmate())
+    ruleChain = new ChessRuleCheckmate()
         .addRule(new ChessRuleStalemate())
         .addRule(new ChessRuleCheck())
         .addRule(new ChessRulePieceMovement());
@@ -66,9 +65,7 @@ public class ChessGame implements Game {
     if (status.isInvalid())
       return ExecutionResult.of(ExecutionStatus.NOT_OK, status.getMessage());
 
-    final ExecutionResult moveResult = table.move(command);
-
-    return moveResult;
+    return table.move(command);
 
   }
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import com.empanada.tdd.chess.components.games.Game;
 import com.empanada.tdd.chess.components.games.impl.ChessGame;
 import com.empanada.tdd.chess.components.managers.Manager;
-import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
@@ -28,7 +27,7 @@ public class ChessManager implements Manager {
 
   @Override
   public OperationResult newGame() {
-    game = ChessGame.of(new ChessTable(), new ChessRuleCheckmate());
+    game = ChessGame.of(new ChessTable());
     game = game.initialize();
     if (game.hasNotStarted())
       return OperationResult.of(OperationStatus.INVALID_INIT_GAME);

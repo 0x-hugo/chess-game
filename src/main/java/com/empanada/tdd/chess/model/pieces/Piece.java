@@ -4,8 +4,14 @@ import com.empanada.tdd.chess.messaging.ChessCoordinate;
 
 public abstract class Piece {
 
+  private ChessCoordinate position;
+
+  private Piece piece;
+
   public abstract String draw();
 
-  public abstract boolean canMove(ChessCoordinate chessPosition, ChessCoordinate destination);
+  public boolean canMove(ChessCoordinate origin, ChessCoordinate destination) {
+    return true;
+  }
 
 }

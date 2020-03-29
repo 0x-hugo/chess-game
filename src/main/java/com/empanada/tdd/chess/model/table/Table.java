@@ -13,10 +13,8 @@ public interface Table {
 
   void killPiece(ChessCoordinate position);
 
-  void movePiece(ChessCoordinate origin, ChessCoordinate destination);
+  void eat(ChessCoordinate origin, ChessCoordinate destination);
 
   ExecutionResult move(Command command);
-
-  boolean canMove(ChessCoordinate origin, ChessCoordinate destination);
 
 }

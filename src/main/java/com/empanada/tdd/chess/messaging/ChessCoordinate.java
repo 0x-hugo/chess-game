@@ -55,4 +55,21 @@ public class ChessCoordinate {
     this.y = y;
   }
 
+  public int diagonalForward(ChessCoordinate destination) {
+    return 0;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof ChessCoordinate) {
+      final ChessCoordinate cord = (ChessCoordinate) obj;
+      return this.x.equals(cord.x) && this.y == cord.y;
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return x.hashCode() * y.hashCode();
+  }
 }

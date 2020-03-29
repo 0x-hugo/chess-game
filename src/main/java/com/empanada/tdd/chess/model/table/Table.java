@@ -9,10 +9,6 @@ public interface Table {
 
   void init();
 
-  ChessPosition getCellAt(ChessCoordinate position);
-
-  ChessPosition getCellAt(Character x, Integer y);
-
   Piece getPieceAt(ChessCoordinate position);
 
   void killPiece(ChessCoordinate position);
@@ -20,5 +16,7 @@ public interface Table {
   void movePiece(ChessCoordinate origin, ChessCoordinate destination);
 
   ExecutionResult move(Command command);
+
+  boolean canMove(ChessCoordinate origin, ChessCoordinate destination);
 
 }

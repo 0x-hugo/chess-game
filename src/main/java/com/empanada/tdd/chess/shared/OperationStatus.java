@@ -5,7 +5,7 @@ public enum OperationStatus {
   OK(200, "OK."),
   INVALID_MOVE(402, "Invalid move."),
   INVALID_COORDINATE(406, "Invalid coordinates."),
-  INVALID_INIT_GAME(402, "Error on start. Try later."),
+  INVALID_INIT_GAME(402, "Game has not been created."),
   ;
 
   private Integer status_code;

@@ -53,7 +53,7 @@ public class OperationResult {
     return !StringUtils.isEmpty(this.message);
   }
 
-  public static ResponseEntity<Response> generateCommandResponse(String message, HttpStatus status) {
+  public static ResponseEntity<Response> generateResponse(HttpStatus status, String message) {
     return new ResponseEntity<>(Response.of(message), status);
   }
 

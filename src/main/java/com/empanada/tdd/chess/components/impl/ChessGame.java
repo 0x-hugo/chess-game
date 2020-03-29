@@ -60,7 +60,7 @@ public class ChessGame implements Game {
 
     final RuleStatus status = ruleChain.applyRule(command, table);
     if (status.isInvalid())
-      return ExecutionResult.of(ExecutionStatus.NOT_VALID, status.getMessage());
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, status.getMessage());
 
     final ExecutionResult moveResult = table.move(command);
 

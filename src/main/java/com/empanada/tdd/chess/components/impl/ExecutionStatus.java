@@ -2,7 +2,7 @@ package com.empanada.tdd.chess.components.impl;
 
 public enum ExecutionStatus {
   GAME_NOT_STARTED(false),
-  NOT_VALID(false),
+  NOT_OK(false),
   OK(true),
   ;
 
@@ -19,5 +19,4 @@ public enum ExecutionStatus {
   public boolean isNotSuccesful() {
     return !isSuccessful();
   }
-
 }

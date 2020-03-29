@@ -33,7 +33,15 @@ public class ChessManager implements Manager {
   }
 
   @Override
+  public void destroyGame() {
+    game = null;
+  }
+
+  @Override
   public OperationResult move(Request request) {
+    if (game == null)
+      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED, "Game has not been created.").toOperationResult();
+
     try {
       final Command command = toCommand(request);
       final ExecutionResult execStatus = game.execute(command);

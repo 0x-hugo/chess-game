@@ -36,7 +36,7 @@ public class ChessController {
     final OperationResult result = manager.newGame();
     if (result.isNotSuccesful())
       return result.generateCommandResponse();
-    return OperationResult.generateCommandResponse("Chess game has been created", HttpStatus.resolve(200));
+    return OperationResult.generateResponse(HttpStatus.resolve(200), "Chess game has been created.");
   }
 
   @PostMapping("/")
@@ -46,6 +46,10 @@ public class ChessController {
     if (result.isNotSuccesful())
       return result.generateCommandResponse();
     return result.generateCommandResponse(HttpStatus.resolve(200));
+  }
+
+  public void destroyGame() {
+    manager.destroyGame();
   }
 
 }

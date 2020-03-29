@@ -9,4 +9,5 @@ public interface Manager {
 
   OperationResult move(Request request);
 
+  void destroyGame();
 }

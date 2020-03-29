@@ -9,6 +9,7 @@ public class ExecutionResult {
   private String message;
 
   public static ExecutionResult of(ExecutionStatus status) {
+//    if (status == ExecutionStatus.GAME_NOT_STARTED) // TODO: Quien tiene que informar si el juego no arranco?
     return new ExecutionResult(status);
   }
 

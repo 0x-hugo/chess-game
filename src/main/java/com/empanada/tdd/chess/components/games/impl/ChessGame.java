@@ -1,13 +1,17 @@
-package com.empanada.tdd.chess.components.impl;
+package com.empanada.tdd.chess.components.games.impl;
 
-import com.empanada.tdd.chess.components.Game;
+import com.empanada.tdd.chess.components.games.Game;
+import com.empanada.tdd.chess.components.games.GameStatus;
 import com.empanada.tdd.chess.components.rules.AbstractRule;
+import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheck;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.components.rules.impl.ChessRulePieceMovement;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleStalemate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.Table;
+import com.empanada.tdd.chess.shared.ExecutionResult;
+import com.empanada.tdd.chess.shared.ExecutionStatus;
 
 public class ChessGame implements Game {
 

@@ -1,7 +1,7 @@
 package com.empanada.tdd.chess.components.rules.impl;
 
-import com.empanada.tdd.chess.components.impl.RuleStatus;
 import com.empanada.tdd.chess.components.rules.AbstractRule;
+import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.NullPiece;

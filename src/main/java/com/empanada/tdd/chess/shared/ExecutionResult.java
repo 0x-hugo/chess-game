@@ -1,7 +1,4 @@
-package com.empanada.tdd.chess.components.impl;
-
-import com.empanada.tdd.chess.shared.OperationResult;
-import com.empanada.tdd.chess.shared.OperationStatus;
+package com.empanada.tdd.chess.shared;
 
 public class ExecutionResult {
 
@@ -29,7 +26,7 @@ public class ExecutionResult {
   private ExecutionResult() {
   }
 
-  OperationResult toOperationResult() {
+  public OperationResult toOperationResult() {
     return (status.isSuccessful())
         ? OperationResult.of(OperationStatus.OK, message)
         : OperationResult.of(OperationStatus.INVALID_MOVE, message);

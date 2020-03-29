@@ -6,8 +6,6 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.empanada.tdd.chess.components.impl.ExecutionResult;
-import com.empanada.tdd.chess.components.impl.ExecutionStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.NullPiece;
@@ -19,6 +17,8 @@ import com.empanada.tdd.chess.model.pieces.impl.Pawn;
 import com.empanada.tdd.chess.model.pieces.impl.Queen;
 import com.empanada.tdd.chess.model.pieces.impl.Rook;
 import com.empanada.tdd.chess.model.table.Table;
+import com.empanada.tdd.chess.shared.ExecutionResult;
+import com.empanada.tdd.chess.shared.ExecutionStatus;
 
 /**
  * Table only knows init game and boundaries

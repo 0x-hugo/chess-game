@@ -1,7 +1,7 @@
-package com.empanada.tdd.chess.components;
+package com.empanada.tdd.chess.components.games;
 
-import com.empanada.tdd.chess.components.impl.ExecutionResult;
 import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.shared.ExecutionResult;
 
 public interface Game {
 

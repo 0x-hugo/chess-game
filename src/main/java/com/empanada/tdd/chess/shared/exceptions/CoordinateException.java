@@ -3,15 +3,15 @@ package com.empanada.tdd.chess.shared.exceptions;
 import com.empanada.tdd.chess.shared.OperationStatus;
 
 // to refactor in StatusOperations
-public class PositionException extends RuntimeException {
+public class CoordinateException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  public PositionException(OperationStatus opStatus) {
+  public CoordinateException(OperationStatus opStatus) {
     super(opStatus.getMessage());
   }
 
-  public PositionException(String string) {
+  public CoordinateException(String string) {
     super(string);
   }
 

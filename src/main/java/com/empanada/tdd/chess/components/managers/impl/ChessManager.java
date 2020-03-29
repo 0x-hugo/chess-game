@@ -1,20 +1,23 @@
-package com.empanada.tdd.chess.components.impl;
+package com.empanada.tdd.chess.components.managers.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.empanada.tdd.chess.components.Game;
-import com.empanada.tdd.chess.components.Manager;
+import com.empanada.tdd.chess.components.games.Game;
+import com.empanada.tdd.chess.components.games.impl.ChessGame;
+import com.empanada.tdd.chess.components.managers.Manager;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
+import com.empanada.tdd.chess.shared.ExecutionResult;
+import com.empanada.tdd.chess.shared.ExecutionStatus;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.Request;
 import com.empanada.tdd.chess.shared.exceptions.CommandException;
-import com.empanada.tdd.chess.shared.exceptions.PositionException;
+import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
 
 @Component("manager.chess")
 public class ChessManager implements Manager {
@@ -66,15 +69,15 @@ public class ChessManager implements Manager {
       final ChessCoordinate destination = ChessCoordinate.of(xDest, yDest);
 
       return Command.of(origin, destination);
-    } catch (NumberFormatException | PositionException e) {
+    } catch (NumberFormatException | CoordinateException e) {
       throw new CommandException(OperationStatus.INVALID_COORDINATE);
     }
   }
 
-  private void validateCordinatesLength(Request request) throws PositionException {
+  private void validateCordinatesLength(Request request) throws CoordinateException {
     if (request.getxOrig().length() != 1 || request.getxDest().length() != 1 ||
         request.getyOrig().length() != 1 || request.getyDest().length() != 1) {
-      throw new PositionException(OperationStatus.INVALID_COORDINATE);
+      throw new CoordinateException(OperationStatus.INVALID_COORDINATE);
     }
   }
 }

@@ -1,9 +1,9 @@
 package com.empanada.tdd.chess.model.table;
 
-import com.empanada.tdd.chess.components.impl.ExecutionResult;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.Piece;
+import com.empanada.tdd.chess.shared.ExecutionResult;
 
 public interface Table {
 

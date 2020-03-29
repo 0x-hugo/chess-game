@@ -4,25 +4,29 @@ import com.empanada.tdd.chess.components.impl.RuleStatus;
 import com.empanada.tdd.chess.components.rules.AbstractRule;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
-import com.empanada.tdd.chess.model.table.ChessPosition;
+import com.empanada.tdd.chess.model.pieces.NullPiece;
+import com.empanada.tdd.chess.model.pieces.Piece;
 import com.empanada.tdd.chess.model.table.Table;
 
 public class ChessRulePieceMovement extends AbstractRule {
 
   @Override
   public RuleStatus applyRule(Command command, Table table) {
-    return (invalidMove())
-        ? RuleStatus.invalid("checkmage.")
-        : applyNextRule(command, table);
+    return validateMove(command, table);
   }
 
-  private boolean invalidMove() {
-    return !validMove();
-  }
+  private RuleStatus validateMove(Command command, Table table) {
+    final ChessCoordinate origin = command.getOrigin();
+    final ChessCoordinate destination = command.getDestination();
 
-  private boolean validMove() {
-    final ChessPosition queen = ChessPosition.of(ChessCoordinate.of('C', 4));
-    return true;
+    final Piece pieceToMove = table.getPieceAt(command.getOrigin());
+
+    if (pieceToMove instanceof NullPiece)
+      return RuleStatus.invalid("There is no piece at [" + origin.toString() + "].");
+
+    if (!pieceToMove.canMove(origin, destination))
+      return RuleStatus.invalid("Not able to move [" + origin.toString() + "] to [" + destination.toString() + "].");
+    return applyNextRule(command, table);
   }
 
 }

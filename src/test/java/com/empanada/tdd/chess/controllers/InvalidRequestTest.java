@@ -39,6 +39,7 @@ public class InvalidRequestTest {
 
   @BeforeEach
   public void startup() {
+    chessAPI.createGame();
   }
 
   @Test

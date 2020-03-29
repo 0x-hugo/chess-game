@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.components.impl;
+package com.empanada.tdd.chess.shared;
 
 public enum ExecutionStatus {
   GAME_NOT_STARTED(false),

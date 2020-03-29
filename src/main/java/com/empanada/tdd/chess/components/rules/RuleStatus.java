@@ -1,4 +1,6 @@
-package com.empanada.tdd.chess.components.impl;
+package com.empanada.tdd.chess.components.rules;
+
+import com.empanada.tdd.chess.shared.ExecutionStatus;
 
 public class RuleStatus {
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.empanada.tdd.chess.components.Manager;
+import com.empanada.tdd.chess.components.managers.Manager;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.Request;
 import com.empanada.tdd.chess.shared.Response;

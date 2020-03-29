@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.components.impl;
+package com.empanada.tdd.chess.components.games;
 
 public enum GameStatus {
 

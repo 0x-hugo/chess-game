@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.empanada.tdd.chess.model.table.impl.ChessCoordenates;
-import com.empanada.tdd.chess.shared.exceptions.PositionException;
+import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
 
 //TODO: build Position abstraction and use CoordenateObject instead of Character and Integer 
 public class ChessCoordinate {
@@ -12,10 +12,10 @@ public class ChessCoordinate {
   private Character x;
   private Integer y;
 
-  public static ChessCoordinate of(Character x, Integer y) throws PositionException {
+  public static ChessCoordinate of(Character x, Integer y) throws CoordinateException {
     final Character upperCaseX = Character.toUpperCase(x);
     if (invalidCoordinates(upperCaseX, y))
-      throw new PositionException("Invalid position");
+      throw new CoordinateException("Invalid position");
     return new ChessCoordinate(upperCaseX, y);
 
   }

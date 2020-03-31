@@ -1,4 +1,6 @@
-package com.empanada.tdd.chess.model.pieces;
+package com.empanada.tdd.chess.model.pieces.impl;
+
+import com.empanada.tdd.chess.model.pieces.AbstractPiece;
 
 public class NullPiece extends AbstractPiece {
 

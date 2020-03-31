@@ -17,8 +17,8 @@ public class MovementBuilder {
     this.moves = new ArrayList<>();
   }
 
-  public AbstractMove create() {
-    return AbstractMove.of(moves);
+  public AbstractMovement create() {
+    return AbstractMovement.of(moves);
   }
 
   public MovementBuilder use(Movement verticalMove) {

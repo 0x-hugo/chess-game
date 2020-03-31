@@ -7,20 +7,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.empanada.tdd.chess.messaging.Coordinate;
-import com.empanada.tdd.chess.model.pieces.moves.AbstractMove;
+import com.empanada.tdd.chess.model.pieces.moves.AbstractMovement;
 
 public abstract class AbstractPiece implements Move {
 
   Logger logger = LogManager.getLogger(AbstractPiece.class.getName());
 
-  private final List<AbstractMove> movements;
+  private final List<AbstractMovement> movements;
 
   public AbstractPiece() {
     movements = new ArrayList<>();
   }
 
   public boolean hasValidMovements(Coordinate origin, Coordinate destination) {
-    for (final AbstractMove movement : movements) {
+    for (final AbstractMovement movement : movements) {
       if (movement.isValid(origin, destination))
         return true;
     }
@@ -32,7 +32,7 @@ public abstract class AbstractPiece implements Move {
     return false;
   }
 
-  protected AbstractPiece addValidMove(AbstractMove move) {
+  protected AbstractPiece addValidMove(AbstractMovement move) {
     movements.add(move);
     return this;
   }

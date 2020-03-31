@@ -8,16 +8,16 @@ import com.empanada.tdd.chess.messaging.Coordinate;
 /**
  * Chain of movements to validate per each piece before a move
  */
-public class AbstractMove {
+public class AbstractMovement {
 
   private final List<Movement> movements;
 
-  public static AbstractMove of(List<Movement> movements) {
+  public static AbstractMovement of(List<Movement> movements) {
     final List<Movement> copy = new ArrayList<>(movements);
-    return new AbstractMove(copy);
+    return new AbstractMovement(copy);
   }
 
-  private AbstractMove(List<Movement> movements) {
+  private AbstractMovement(List<Movement> movements) {
     this.movements = movements;
   }
 

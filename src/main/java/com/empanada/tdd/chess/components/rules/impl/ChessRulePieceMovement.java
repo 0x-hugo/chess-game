@@ -5,7 +5,7 @@ import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.AbstractPiece;
-import com.empanada.tdd.chess.model.pieces.NullPiece;
+import com.empanada.tdd.chess.model.pieces.impl.NullPiece;
 import com.empanada.tdd.chess.model.table.Table;
 
 public class ChessRulePieceMovement extends AbstractRule {

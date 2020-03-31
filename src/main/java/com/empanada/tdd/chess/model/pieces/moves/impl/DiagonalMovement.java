@@ -3,12 +3,8 @@ package com.empanada.tdd.chess.model.pieces.moves.impl;
 import com.empanada.tdd.chess.messaging.Coordinate;
 import com.empanada.tdd.chess.model.pieces.moves.Movement;
 
-public class HorizontalMove implements Movement {
-  private int stepsAllowed = 0;
-
-  public HorizontalMove(int i) {
-    stepsAllowed = i;
-  }
+public class DiagonalMovement implements Movement {
+  private final int stepsAllowed = 0;
 
   @Override
   public void apply(Coordinate origin, Coordinate destination) {

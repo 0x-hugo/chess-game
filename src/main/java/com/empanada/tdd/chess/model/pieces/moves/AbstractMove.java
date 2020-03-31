@@ -1,31 +1,31 @@
 package com.empanada.tdd.chess.model.pieces.moves;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.empanada.tdd.chess.messaging.Coordinate;
 
 /**
  * Chain of movements to validate per each piece before a move
  */
-public abstract class AbstractMove implements Movement {
+public class AbstractMove {
 
-  private AbstractMove nextMove;
+  private final List<Movement> movements;
 
-  public AbstractMove addValidMove(AbstractMove nextMove) {
-    AbstractMove lastMove = this;
-
-    while (lastMove.nextMove != null) {
-      lastMove = lastMove.nextMove;
-    }
-
-    lastMove.nextMove = nextMove;
-
-    return this;
+  public static AbstractMove of(List<Movement> movements) {
+    final List<Movement> copy = new ArrayList<>(movements);
+    return new AbstractMove(copy);
   }
 
-  protected boolean isValid(Coordinate origin, Coordinate destination) {
-    if (nextMove == null)
-      return true;
+  private AbstractMove(List<Movement> movements) {
+    this.movements = movements;
+  }
 
-    return nextMove.canMove(origin, destination);
+  public boolean isValid(Coordinate origin, Coordinate destination) {
+    final Coordinate startPos = origin;
+    final Coordinate endPos = destination;
+    movements.forEach(movement -> movement.apply(startPos, endPos));
+    return startPos.equals(endPos);
   }
 
 }

@@ -4,5 +4,5 @@ import com.empanada.tdd.chess.messaging.Coordinate;
 
 public interface Movement {
 
-  boolean canMove(Coordinate origin, Coordinate destination);
+  void apply(Coordinate origin, Coordinate destination);
 }

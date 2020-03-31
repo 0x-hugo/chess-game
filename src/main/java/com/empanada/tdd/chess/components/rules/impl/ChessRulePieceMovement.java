@@ -19,12 +19,12 @@ public class ChessRulePieceMovement extends AbstractRule {
     final ChessCoordinate origin = command.getOrigin();
     final ChessCoordinate destination = command.getDestination();
 
-    final AbstractPiece pieceToMove = table.getPieceAt(command.getOrigin());
+    final AbstractPiece piece = table.getPieceAt(command.getOrigin());
 
-    if (pieceToMove instanceof NullPiece)
+    if (piece instanceof NullPiece)
       return RuleStatus.invalid("There is no piece at [" + origin.toString() + "].");
 
-    if (!pieceToMove.canMove(origin, destination))
+    if (!piece.hasValidMovements(origin, destination))
       return RuleStatus.invalid("Not able to move [" + origin.toString() + "] to [" + destination.toString() + "].");
     return super.applyNextRule(command, table);
   }

@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
-import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.pieces.AbstractPiece;
+import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
 import com.empanada.tdd.chess.model.pieces.impl.Knight;
@@ -62,10 +62,12 @@ public class ChessTable implements Table {
   }
 
   private void addToTable(Character x, Integer y, AbstractPiece piece) {
+    piece.setUpValidMoves();
     addToTable(ChessCoordinate.of(x, y), piece);
   }
 
   private void addToTable(ChessCoordinate position, AbstractPiece piece) {
+    piece.setUpValidMoves();
     table.put(position, piece);
   }
 

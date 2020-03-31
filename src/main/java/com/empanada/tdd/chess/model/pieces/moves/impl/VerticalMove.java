@@ -1,21 +1,18 @@
 package com.empanada.tdd.chess.model.pieces.moves.impl;
 
 import com.empanada.tdd.chess.messaging.Coordinate;
-import com.empanada.tdd.chess.model.pieces.moves.AbstractMove;
+import com.empanada.tdd.chess.model.pieces.moves.Movement;
 
-public class VerticalMove extends AbstractMove {
-  private final int stepsAllowed = 0;
+public class VerticalMove implements Movement {
+  private int stepsAllowed = 0;
 
-  @Override
-  public boolean canMove(Coordinate origin, Coordinate destination) {
-    if (!applyMoves(origin, destination))
-      return false;
-
-    return super.isValid(origin, destination);
+  public VerticalMove(int i) {
+    stepsAllowed = i;
   }
 
-  private boolean applyMoves(Coordinate origin, Coordinate destination) {
-    return true;
+  @Override
+  public void apply(Coordinate origin, Coordinate destination) {
+
   }
 
 }

@@ -15,9 +15,9 @@ import com.empanada.tdd.chess.shared.ExecutionStatus;
 
 public class ChessGame implements Game {
 
-  Table table;
-  AbstractRule ruleChain;
   GameStatus state;
+  AbstractRule ruleChain;
+  Table table;
 
   public static ChessGame of(Table table) {
     return new ChessGame(table);

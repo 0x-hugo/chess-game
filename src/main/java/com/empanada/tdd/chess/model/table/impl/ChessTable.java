@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.NullPiece;
-import com.empanada.tdd.chess.model.pieces.Piece;
+import com.empanada.tdd.chess.model.pieces.AbstractPiece;
 import com.empanada.tdd.chess.model.pieces.impl.Bishop;
 import com.empanada.tdd.chess.model.pieces.impl.King;
 import com.empanada.tdd.chess.model.pieces.impl.Knight;
@@ -27,7 +27,7 @@ public class ChessTable implements Table {
 
   private static final Logger logger = LogManager.getLogger(ChessTable.class.getName());
 
-  Map<ChessCoordinate, Piece> table;
+  Map<ChessCoordinate, AbstractPiece> table;
 
   @Override
   public void init() {
@@ -36,8 +36,8 @@ public class ChessTable implements Table {
   }
 
   private void initializePositions() {
-    for (final Integer y : ChessCoordenates.vertical) {
-      for (final Character x : ChessCoordenates.horizontal) {
+    for (final Integer y : ChessCoordinates.vertical) {
+      for (final Character x : ChessCoordinates.horizontal) {
         if (y == 1 || y == 8) {
           if (x == 'A' || x == 'H')
             addToTable(x, y, new Rook());
@@ -61,16 +61,16 @@ public class ChessTable implements Table {
 
   }
 
-  private void addToTable(Character x, Integer y, Piece piece) {
+  private void addToTable(Character x, Integer y, AbstractPiece piece) {
     addToTable(ChessCoordinate.of(x, y), piece);
   }
 
-  private void addToTable(ChessCoordinate position, Piece piece) {
+  private void addToTable(ChessCoordinate position, AbstractPiece piece) {
     table.put(position, piece);
   }
 
   @Override
-  public Piece getPieceAt(ChessCoordinate coordinate) {
+  public AbstractPiece getPieceAt(ChessCoordinate coordinate) {
     return table.get(coordinate);
   }
 

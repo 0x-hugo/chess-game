@@ -5,7 +5,7 @@ import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.NullPiece;
-import com.empanada.tdd.chess.model.pieces.Piece;
+import com.empanada.tdd.chess.model.pieces.AbstractPiece;
 import com.empanada.tdd.chess.model.table.Table;
 
 public class ChessRulePieceMovement extends AbstractRule {
@@ -19,7 +19,7 @@ public class ChessRulePieceMovement extends AbstractRule {
     final ChessCoordinate origin = command.getOrigin();
     final ChessCoordinate destination = command.getDestination();
 
-    final Piece pieceToMove = table.getPieceAt(command.getOrigin());
+    final AbstractPiece pieceToMove = table.getPieceAt(command.getOrigin());
 
     if (pieceToMove instanceof NullPiece)
       return RuleStatus.invalid("There is no piece at [" + origin.toString() + "].");

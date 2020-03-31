@@ -3,11 +3,11 @@ package com.empanada.tdd.chess.messaging;
 import java.util.Arrays;
 import java.util.List;
 
-import com.empanada.tdd.chess.model.table.impl.ChessCoordenates;
+import com.empanada.tdd.chess.model.table.impl.ChessCoordinates;
 import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
 
 //TODO: build Position abstraction and use CoordenateObject instead of Character and Integer 
-public class ChessCoordinate {
+public class ChessCoordinate implements Coordinate {
 
   private Character x;
   private Integer y;
@@ -25,8 +25,8 @@ public class ChessCoordinate {
   }
 
   private static boolean validCoordinates(Character x, Integer y) {
-    final List<Character> validX = Arrays.asList(ChessCoordenates.horizontal);
-    final List<Integer> validY = Arrays.asList(ChessCoordenates.vertical);
+    final List<Character> validX = Arrays.asList(ChessCoordinates.horizontal);
+    final List<Integer> validY = Arrays.asList(ChessCoordinates.vertical);
     return validX.contains(x) && validY.contains(y);
   }
 

@@ -3,7 +3,7 @@ package com.empanada.tdd.chess;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.empanada.tdd.chess.controllers.EndpointURL;
+import com.empanada.tdd.chess.utils.EndpointURL;
 
 @SpringBootTest
 class ChessApplicationTests {

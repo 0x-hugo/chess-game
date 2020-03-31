@@ -4,6 +4,7 @@ import com.empanada.tdd.chess.messaging.Coordinate;
 import com.empanada.tdd.chess.model.pieces.moves.AbstractMove;
 
 public class DiagonalMove extends AbstractMove {
+  private final int stepsAllowed = 0;
 
   @Override
   public boolean canMove(Coordinate origin, Coordinate destination) {
@@ -14,7 +15,7 @@ public class DiagonalMove extends AbstractMove {
   }
 
   private boolean applyMoves(Coordinate origin, Coordinate destination) {
-    return false;
+    return true;
   }
 
 }

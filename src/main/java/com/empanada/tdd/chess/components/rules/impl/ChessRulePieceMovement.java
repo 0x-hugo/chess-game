@@ -4,8 +4,8 @@ import com.empanada.tdd.chess.components.rules.AbstractRule;
 import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
-import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.pieces.AbstractPiece;
+import com.empanada.tdd.chess.model.pieces.NullPiece;
 import com.empanada.tdd.chess.model.table.Table;
 
 public class ChessRulePieceMovement extends AbstractRule {
@@ -26,7 +26,7 @@ public class ChessRulePieceMovement extends AbstractRule {
 
     if (!pieceToMove.canMove(origin, destination))
       return RuleStatus.invalid("Not able to move [" + origin.toString() + "] to [" + destination.toString() + "].");
-    return applyNextRule(command, table);
+    return super.applyNextRule(command, table);
   }
 
 }

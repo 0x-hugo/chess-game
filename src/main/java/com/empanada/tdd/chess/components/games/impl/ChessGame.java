@@ -2,7 +2,7 @@ package com.empanada.tdd.chess.components.games.impl;
 
 import com.empanada.tdd.chess.components.games.Game;
 import com.empanada.tdd.chess.components.games.GameStatus;
-import com.empanada.tdd.chess.components.rules.AbstractRule;
+import com.empanada.tdd.chess.components.rules.Rule;
 import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheck;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
@@ -16,7 +16,7 @@ import com.empanada.tdd.chess.shared.ExecutionStatus;
 public class ChessGame implements Game {
 
   GameStatus state;
-  AbstractRule ruleChain;
+  Rule rules;
   Table table;
 
   public static ChessGame of(Table table) {
@@ -49,7 +49,7 @@ public class ChessGame implements Game {
   }
 
   private void setupRules() {
-    ruleChain = new ChessRuleCheckmate()
+    rules = new ChessRuleCheckmate()
         .addRule(new ChessRuleStalemate())
         .addRule(new ChessRuleCheck())
         .addRule(new ChessRulePieceMovement());
@@ -61,7 +61,7 @@ public class ChessGame implements Game {
     if (this.hasNotStarted())
       return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED);
 
-    final RuleStatus status = ruleChain.applyRule(command, table);
+    final RuleStatus status = rules.applyRule(command, table);
     if (status.isInvalid())
       return ExecutionResult.of(ExecutionStatus.NOT_OK, status.getMessage());
 

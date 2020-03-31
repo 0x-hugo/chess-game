@@ -23,7 +23,6 @@ public abstract class AbstractRule implements Rule {
     return this;
   }
 
-//TODO: add OK descriptive message
   protected RuleStatus applyNextRule(Command command, Table table) {
     if (nextRule == null)
       return RuleStatus.valid();

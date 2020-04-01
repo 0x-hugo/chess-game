@@ -7,7 +7,7 @@ import java.util.List;
  * It defines each movement for the piece
  */
 public class MovementBuilder {
-  protected List<Movement> moves;
+  protected List<Move> moves;
 
   public static MovementBuilder of() {
     return new MovementBuilder();
@@ -17,11 +17,11 @@ public class MovementBuilder {
     this.moves = new ArrayList<>();
   }
 
-  public AbstractMovement create() {
-    return AbstractMovement.of(moves);
+  public Movement create() {
+    return Movement.of(moves);
   }
 
-  public MovementBuilder use(Movement verticalMove) {
+  public MovementBuilder use(Move verticalMove) {
     moves.add(verticalMove);
     return this;
   }

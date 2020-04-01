@@ -1,12 +1,12 @@
 package com.empanada.tdd.chess.model.pieces.moves.impl;
 
 import com.empanada.tdd.chess.messaging.Coordinate;
-import com.empanada.tdd.chess.model.pieces.moves.Movement;
+import com.empanada.tdd.chess.model.pieces.moves.Move;
 
-public class VerticalMovement implements Movement {
+public class VerticalMove implements Move {
   private int stepsAllowed = 0;
 
-  public VerticalMovement(int i) {
+  public VerticalMove(int i) {
     stepsAllowed = i;
   }
 

@@ -29,7 +29,7 @@ public class ExecutionResult {
   public OperationResult toOperationResult() {
     return (status.isSuccessful())
         ? OperationResult.of(OperationStatus.OK, message)
-        : OperationResult.of(OperationStatus.INVALID_MOVE, message);
+        : OperationResult.of(OperationStatus.NOT_OK, message);
   }
 
 }

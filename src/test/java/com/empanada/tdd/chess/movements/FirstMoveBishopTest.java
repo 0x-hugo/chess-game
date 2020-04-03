@@ -49,7 +49,7 @@ public class FirstMoveBishopTest extends GenericFirstMove {
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is5xxServerError())
-        .andExpect(content().string(containsString(invalid_move_msg)));
+        .andExpect(content().string(containsString("Not able to move [F1] to [F3].")));
 
   }
 

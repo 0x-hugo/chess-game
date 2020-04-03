@@ -3,11 +3,11 @@ package com.empanada.tdd.chess.model.table.impl;
 import java.util.Arrays;
 
 import com.empanada.tdd.chess.model.table.Coordinate;
-import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
 
 public class ChessCoordinate implements Coordinate {
 
+  protected static String invalidMsg = "Invalid coordinates.";
   protected static final Integer[] vertical = { 1, 2, 3, 4, 5, 6, 7, 8 };
   protected static final Character[] horizontal = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
 
@@ -27,7 +27,7 @@ public class ChessCoordinate implements Coordinate {
   private static int positionInArray(Object[] array, final Object value) {
     final int a = Arrays.asList(array).indexOf(value);
     if (a == -1)
-      throw new CoordinateException("out of bounds");
+      throw new CoordinateException(invalidMsg);
     return a;
   }
 
@@ -39,7 +39,7 @@ public class ChessCoordinate implements Coordinate {
 
   public static Coordinate buildCoordinate(String possibleX, String possibleY) {
     if (possibleX.length() != 1 || possibleY.length() != 1)
-      throw new CoordinateException(OperationStatus.INVALID_COORDINATE);
+      throw new CoordinateException(invalidMsg);
     final Character xCord = possibleX.charAt(0);
     final Integer yCord = convertToNumber(possibleY);
     return ChessCoordinate.of(xCord, yCord);
@@ -95,14 +95,6 @@ public class ChessCoordinate implements Coordinate {
   @Override
   public boolean isValid() {
     return x.isValid() && y.isValid();
-  }
-
-  @Override
-  public void setX() {
-  }
-
-  @Override
-  public void setY() {
   }
 
 }

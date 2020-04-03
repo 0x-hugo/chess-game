@@ -36,7 +36,7 @@ public class ChessController {
     final OperationResult result = manager.newGame();
     if (result.isNotSuccesful())
       return result.generateCommandResponse();
-    return OperationResult.generateResponse(HttpStatus.resolve(200), "Chess game has been created.");
+    return OperationResult.generateResponse(HttpStatus.resolve(200), "Chess game has been started.");
   }
 
   @PostMapping("/")

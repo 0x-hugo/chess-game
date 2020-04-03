@@ -62,8 +62,8 @@ public class ChessGame implements Game {
     final Coordinate origin = command.getOrigin();
     final Coordinate destination = command.getDestination();
 
-    if (table.isOutOfBounds(origin) && table.isOutOfBounds(destination))
-      return ExecutionResult.of(ExecutionStatus.NOT_OK, "out of bounds");
+    if (table.isOutOfBounds(origin) || table.isOutOfBounds(destination))
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, "Invalid coordinates.");
     if (origin.equals(destination))
       return ExecutionResult.of(ExecutionStatus.NOT_OK, "same coordinates");
 

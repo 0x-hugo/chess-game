@@ -49,7 +49,7 @@ public class FirstMoveRookTest extends GenericFirstMove {
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is5xxServerError())
-        .andExpect(content().string(containsString(invalid_move_msg)));
+        .andExpect(content().string(containsString("Rook from [A1] to [A3] is blocked by another piece.")));
 
   }
 

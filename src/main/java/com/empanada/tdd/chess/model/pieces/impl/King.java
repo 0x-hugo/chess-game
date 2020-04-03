@@ -11,6 +11,7 @@ public class King extends AbstractPiece {
 
   @Override
   public void setUpValidMoves() {
+
   }
 
 }

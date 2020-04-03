@@ -27,6 +27,7 @@ public class InvalidRequestTest {
   ChessController chessAPI;
 
   public static final String playEndpoint = EndpointURL.move.getUrl();
+  private static final String invalidCordMsg = "Invalid coordinates.";
 
   @Autowired
   public InvalidRequestTest(MockMvc mockInstance, ChessController apiImpl) {
@@ -46,8 +47,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   @Test
@@ -57,8 +58,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   @Test
@@ -68,8 +69,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   @Test
@@ -79,8 +80,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   @Test
@@ -90,8 +91,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("out of bounds")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   @Test
@@ -101,8 +102,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("out of bounds")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   public void invalidValueInXDestCoordinate() throws Exception {
@@ -111,8 +112,8 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 
   public void invalidValueInYDestCoordinate() throws Exception {
@@ -121,7 +122,7 @@ public class InvalidRequestTest {
     mockMvc.perform(post(playEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString(invalidCordMsg)));
   }
 }

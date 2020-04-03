@@ -45,7 +45,7 @@ public class StartChessGameTest {
   public void createGameHappyCase() throws Exception {
     mockMvc.perform(post(startEndpoint))
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string(containsString("Chess game has been created.")));
+        .andExpect(content().string(containsString("Chess game has been started.")));
   }
 
   @Test
@@ -55,7 +55,7 @@ public class StartChessGameTest {
     mockMvc.perform(post(moveEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(validRequest)))
-        .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Game has not been created.")));
+        .andExpect(status().is5xxServerError())
+        .andExpect(content().string(containsString("Chess game has not been started.")));
   }
 }

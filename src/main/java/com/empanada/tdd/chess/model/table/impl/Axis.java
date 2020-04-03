@@ -25,7 +25,7 @@ public class Axis {
   }
 
   boolean isValid() {
-    return (i > 0 && i < Arrays.asList(domain).size());
+    return (i >= 0 && i < Arrays.asList(domain).size());
   }
 
   public void increment(int i) {

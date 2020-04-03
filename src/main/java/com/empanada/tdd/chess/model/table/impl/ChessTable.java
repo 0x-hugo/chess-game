@@ -105,14 +105,7 @@ public class ChessTable implements Table {
 
   @Override
   public boolean isOutOfBounds(Coordinate position) {
-    return invalidCoordinates(position.getHorizontal(), position.getVertical());
+    return !position.isValid();
   }
 
-  private boolean invalidCoordinates(Axis x, Axis y) {
-    return !validCoordinates(x, y);
-  }
-
-  private boolean validCoordinates(Axis x, Axis y) {
-    return x.isValid() && y.isValid();
-  }
 }

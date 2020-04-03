@@ -12,7 +12,6 @@ import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.model.table.impl.ChessCoordinate;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.ExecutionResult;
-import com.empanada.tdd.chess.shared.ExecutionStatus;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.Request;
@@ -31,7 +30,7 @@ public class ChessManager implements Manager {
     game = ChessGame.of(new ChessTable());
     game = game.initialize();
     if (game.hasNotStarted())
-      return OperationResult.of(OperationStatus.INVALID_INIT_GAME);
+      return OperationResult.of(OperationStatus.NOT_OK);
     return OperationResult.of(OperationStatus.OK);
   }
 
@@ -43,14 +42,14 @@ public class ChessManager implements Manager {
   @Override
   public OperationResult move(Request request) {
     if (game == null)
-      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED, "Game has not been created.").toOperationResult();
+      return OperationResult.of(OperationStatus.NOT_OK, "Chess game has not been started.");
 
     try {
       final Command command = toCommand(request);
       final ExecutionResult execStatus = game.execute(command);
       return execStatus.toOperationResult();
     } catch (final CommandException exception) {
-      logger.info(OperationStatus.INVALID_COORDINATE, exception); // TODO: Add Position info for this exception
+      logger.info(OperationStatus.NOT_OK, exception); // TODO: Add Position info for this exception
       return OperationResult.of(exception.getStatus(), exception.getMessage());
     }
   }
@@ -62,7 +61,7 @@ public class ChessManager implements Manager {
 
       return Command.of(origin, destination);
     } catch (NumberFormatException | CoordinateException e) {
-      throw new CommandException(OperationStatus.INVALID_COORDINATE, e.getMessage());
+      throw new CommandException(OperationStatus.NOT_OK, e.getMessage());
     }
   }
 

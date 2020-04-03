@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * It defines each movement for the piece
+ * It defines each movement for the piece. DO NOT USE THIS BUILDER until its
+ * working
  */
 public class MovementBuilder {
   protected List<Move> moves;

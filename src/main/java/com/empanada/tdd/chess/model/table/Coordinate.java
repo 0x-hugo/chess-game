@@ -14,8 +14,4 @@ public interface Coordinate {
 
   boolean isValid();
 
-  void setX();
-
-  void setY();
-
 }

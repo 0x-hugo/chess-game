@@ -1,18 +1,26 @@
 package com.empanada.tdd.chess.model.pieces.moves.impl;
 
-import com.empanada.tdd.chess.messaging.Coordinate;
 import com.empanada.tdd.chess.model.pieces.moves.Move;
+import com.empanada.tdd.chess.model.table.Coordinate;
 
 public class VerticalMove implements Move {
   private int stepsAllowed = 0;
 
-  public VerticalMove(int i) {
+  private VerticalMove(int i) {
     stepsAllowed = i;
   }
 
-  @Override
-  public void apply(Coordinate origin, Coordinate destination) {
+  public static VerticalMove withSteps(int steps) {
+    return new VerticalMove(steps);
+  }
 
+  public static VerticalMove withAnySteps() {
+    return new VerticalMove(ANY_STEPS);
+  }
+
+  @Override
+  public void apply(Coordinate coordinate) {
+    coordinate.incrementVertical(stepsAllowed);
   }
 
 }

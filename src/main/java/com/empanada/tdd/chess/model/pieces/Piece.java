@@ -1,6 +1,6 @@
 package com.empanada.tdd.chess.model.pieces;
 
-import com.empanada.tdd.chess.messaging.Coordinate;
+import com.empanada.tdd.chess.model.table.Coordinate;
 
 public interface Piece {
 

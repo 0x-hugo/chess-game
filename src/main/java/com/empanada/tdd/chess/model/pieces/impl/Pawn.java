@@ -16,8 +16,8 @@ public class Pawn extends AbstractPiece {
   @Override
   public void setUpValidMoves() {
     final MovementBuilder builder = new MovementBuilder();
-    final Movement pawnMove = builder.use(new HorizontalMove(-1))
-        .and().use(new VerticalMove(0))
+    final Movement pawnMove = builder.use(HorizontalMove.withSteps(-1))
+        .and().use(VerticalMove.withSteps(0))
         .create();
 
     addValidMove(pawnMove);

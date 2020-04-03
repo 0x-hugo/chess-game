@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.empanada.tdd.chess.messaging.Coordinate;
 import com.empanada.tdd.chess.model.pieces.moves.Movement;
+import com.empanada.tdd.chess.model.table.Coordinate;
 
 public abstract class AbstractPiece implements Piece {
 
@@ -26,9 +26,9 @@ public abstract class AbstractPiece implements Piece {
     }
 
     logger.debug("Cannot move from "
-        + "[" + origin.getX().toString() + origin.getY().toString() + "]"
+        + "[" + origin.getHorizontal().toString() + origin.getVertical().toString() + "]"
         + " to "
-        + "[" + destination.getX() + destination.getY() + "]");
+        + "[" + destination.getHorizontal() + destination.getVertical() + "]");
     return false;
   }
 

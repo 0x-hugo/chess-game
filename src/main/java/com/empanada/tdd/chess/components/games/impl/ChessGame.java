@@ -9,6 +9,7 @@ import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.components.rules.impl.ChessRulePieceMovement;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleStalemate;
 import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.model.table.Table;
 import com.empanada.tdd.chess.shared.ExecutionResult;
 import com.empanada.tdd.chess.shared.ExecutionStatus;
@@ -58,14 +59,20 @@ public class ChessGame implements Game {
 
   @Override
   public ExecutionResult execute(Command command) {
-    if (this.hasNotStarted())
-      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED);
+    final Coordinate origin = command.getOrigin();
+    final Coordinate destination = command.getDestination();
 
-    final RuleStatus status = rules.applyRule(command, table);
+    if (table.isOutOfBounds(origin) && table.isOutOfBounds(destination))
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, "out of bounds");
+    if (origin.equals(destination))
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, "same coordinates");
+
+    // Case of King get (checked or mate) after a piece moves
+    final RuleStatus status = rules.apply(origin, destination, table);
     if (status.isInvalid())
       return ExecutionResult.of(ExecutionStatus.NOT_OK, status.getMessage());
 
-    return table.move(command);
+    return table.move(origin, destination);
 
   }
 

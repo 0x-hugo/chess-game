@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 import com.empanada.tdd.chess.components.games.Game;
 import com.empanada.tdd.chess.components.games.impl.ChessGame;
 import com.empanada.tdd.chess.components.managers.Manager;
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
+import com.empanada.tdd.chess.model.table.impl.ChessCoordinate;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.ExecutionResult;
 import com.empanada.tdd.chess.shared.ExecutionStatus;
@@ -49,34 +50,20 @@ public class ChessManager implements Manager {
       final ExecutionResult execStatus = game.execute(command);
       return execStatus.toOperationResult();
     } catch (final CommandException exception) {
-      // TODO: Add which Position caused this exception for info
-      logger.info(OperationStatus.INVALID_COORDINATE, exception);
-      return OperationResult.of(exception.getStatus());
+      logger.info(OperationStatus.INVALID_COORDINATE, exception); // TODO: Add Position info for this exception
+      return OperationResult.of(exception.getStatus(), exception.getMessage());
     }
   }
 
   private Command toCommand(Request request) throws CommandException {
     try {
-      validateCordinatesLength(request);
-
-      final Character xOrig = request.getxOrig().charAt(0);
-      final Character xDest = request.getxDest().charAt(0);
-      final Integer yOrig = Integer.parseInt(request.getyOrig());
-      final Integer yDest = Integer.parseInt(request.getyDest());
-
-      final ChessCoordinate origin = ChessCoordinate.of(xOrig, yOrig);
-      final ChessCoordinate destination = ChessCoordinate.of(xDest, yDest);
+      final Coordinate origin = ChessCoordinate.buildCoordinate(request.getxOrig(), request.getyOrig());
+      final Coordinate destination = ChessCoordinate.buildCoordinate(request.getxDest(), request.getyDest());
 
       return Command.of(origin, destination);
     } catch (NumberFormatException | CoordinateException e) {
-      throw new CommandException(OperationStatus.INVALID_COORDINATE);
+      throw new CommandException(OperationStatus.INVALID_COORDINATE, e.getMessage());
     }
   }
 
-  private void validateCordinatesLength(Request request) throws CoordinateException {
-    if (request.getxOrig().length() != 1 || request.getxDest().length() != 1 ||
-        request.getyOrig().length() != 1 || request.getyDest().length() != 1) {
-      throw new CoordinateException(OperationStatus.INVALID_COORDINATE);
-    }
-  }
 }

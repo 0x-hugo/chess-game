@@ -16,9 +16,9 @@ public class Rook extends AbstractPiece {
   @Override
   public void setUpValidMoves() {
     MovementBuilder builder = new MovementBuilder();
-    builder = builder.use(new HorizontalMove(0));
+    builder = builder.use(HorizontalMove.withSteps(0));
     builder = builder.and();
-    builder = builder.use(new VerticalMove(0));
+    builder = builder.use(VerticalMove.withSteps(0));
     final Movement rookMove = builder.create();
 
     super.addValidMove(rookMove);

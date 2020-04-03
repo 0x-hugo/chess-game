@@ -1,6 +1,6 @@
 package com.empanada.tdd.chess.components.rules;
 
-import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.model.table.Table;
 
 /**
@@ -23,11 +23,11 @@ public abstract class AbstractRule implements Rule {
     return this;
   }
 
-  protected RuleStatus applyNextRule(Command command, Table table) {
+  protected RuleStatus applyNextRule(Coordinate origin, Coordinate destination, Table table) {
     if (nextRule == null)
       return RuleStatus.valid();
 
-    return nextRule.applyRule(command, table);
+    return nextRule.apply(origin, destination, table);
   }
 
 }

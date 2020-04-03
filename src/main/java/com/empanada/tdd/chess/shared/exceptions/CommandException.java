@@ -13,6 +13,11 @@ public class CommandException extends RuntimeException {
     status = opStatus;
   }
 
+  public CommandException(OperationStatus opStatus, String message) {
+    super(message);
+    status = opStatus;
+  }
+
   public CommandException(String string) {
     super(string);
   }

@@ -91,7 +91,7 @@ public class InvalidRequestTest {
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(content().string(containsString("out of bounds")));
   }
 
   @Test
@@ -102,7 +102,7 @@ public class InvalidRequestTest {
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string(containsString("Invalid coordinates.")));
+        .andExpect(content().string(containsString("out of bounds")));
   }
 
   public void invalidValueInXDestCoordinate() throws Exception {

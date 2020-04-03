@@ -3,10 +3,12 @@ package com.empanada.tdd.chess.model.pieces.moves;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.empanada.tdd.chess.messaging.Coordinate;
+import com.empanada.tdd.chess.model.table.Coordinate;
+import com.empanada.tdd.chess.model.table.impl.ChessCoordinate;
 
 /**
- * Chain of moves validations
+ * Chain of moves that modifies coordinates. If moves get you to the
+ * destination, it is a valid movement.
  */
 public class Movement {
 
@@ -22,10 +24,14 @@ public class Movement {
   }
 
   public boolean isValid(Coordinate origin, Coordinate destination) {
-    final Coordinate startPos = origin;
-    final Coordinate endPos = destination;
-    moves.forEach(movement -> movement.apply(startPos, endPos));
-    return startPos.equals(endPos);
+    final Coordinate endPositionAfterMovement = copyOf(origin);
+    moves.forEach(movement -> movement.apply(endPositionAfterMovement));
+    return endPositionAfterMovement.equals(destination);
   }
 
+  private Coordinate copyOf(Coordinate position) {
+    return ChessCoordinate.of(
+        (Character) position.getHorizontal().getValue(),
+        (Integer) position.getVertical().getValue());
+  }
 }

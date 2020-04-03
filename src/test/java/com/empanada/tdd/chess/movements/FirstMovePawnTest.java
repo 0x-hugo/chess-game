@@ -71,6 +71,6 @@ public class FirstMovePawnTest extends GenericFirstMove {
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(validRequest)))
         .andExpect(status().is5xxServerError())
-        .andExpect(content().string(containsString("Not able to move [D2] to [D5].")));
+        .andExpect(content().string(containsString("Not able to move Pawn from [D2] to [D5].")));
   }
 }

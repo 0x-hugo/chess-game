@@ -8,6 +8,8 @@ import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
 public class Pawn extends AbstractPiece {
 
+  private final String name = "Pawn";
+
   @Override
   public String draw() {
     return null;
@@ -22,4 +24,13 @@ public class Pawn extends AbstractPiece {
     addValidMove(twoMove);
   }
 
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

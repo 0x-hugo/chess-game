@@ -10,6 +10,8 @@ import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
 public class Bishop extends AbstractPiece {
 
+  private final String name = "Bishop";
+
   @Override
   public String draw() {
     return null;
@@ -21,5 +23,15 @@ public class Bishop extends AbstractPiece {
     moves.add(VerticalMove.withSteps(5));
     addValidMove(Movement.of(moves));
 
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 }

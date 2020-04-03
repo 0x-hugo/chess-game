@@ -11,6 +11,8 @@ import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
 public class Knight extends AbstractPiece {
 
+  private final String name = "Knight";
+
   private final List<Move> upRight = Arrays.asList(VerticalMove.withSteps(2),
       HorizontalMove.withSteps(1));
 
@@ -50,6 +52,16 @@ public class Knight extends AbstractPiece {
     addValidMove(Movement.of(rightDown));
     addValidMove(Movement.of(leftUp));
     addValidMove(Movement.of(leftDown));
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 
 }

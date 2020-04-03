@@ -7,4 +7,6 @@ public interface Piece {
   void setUpValidMoves();
 
   boolean hasValidMovements(Coordinate origin, Coordinate destination);
+
+  String getName();
 }

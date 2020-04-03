@@ -42,14 +42,14 @@ public class FirstMoveBishopTest extends GenericFirstMove {
   }
 
   @Test
-  public void invalidBishopMove() throws Exception {
+  public void invalidMove() throws Exception {
     final Request invalidRequest = new Request("F", "1", "F", "3");
 
     mockMvc.perform(post(moveEndpoint)
         .contentType(HttpUtils.APPLICATION_JSON_UTF8)
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is5xxServerError())
-        .andExpect(content().string(containsString("Not able to move [F1] to [F3].")));
+        .andExpect(content().string(containsString("Not able to move Bishop from [F1] to [F3].")));
 
   }
 

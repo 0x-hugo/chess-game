@@ -8,6 +8,8 @@ import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
 public class Rook extends AbstractPiece {
 
+  private final String name = "Rook";
+
   @Override
   public String draw() {
     return null;
@@ -22,6 +24,16 @@ public class Rook extends AbstractPiece {
     final Movement rookMove = builder.create();
 
     super.addValidMove(rookMove);
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public String toString() {
+    return getName();
   }
 
 }

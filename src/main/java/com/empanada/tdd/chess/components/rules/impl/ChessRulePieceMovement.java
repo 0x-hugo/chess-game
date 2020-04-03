@@ -22,7 +22,10 @@ public class ChessRulePieceMovement extends AbstractRule {
       return RuleStatus.invalid("There is no piece at [" + origin.toString() + "].");
 
     if (!piece.hasValidMovements(origin, destination))
-      return RuleStatus.invalid("Not able to move [" + origin.toString() + "] to [" + destination.toString() + "].");
+      return RuleStatus.invalid("Not able to move " + piece.getName() + " from "
+          + "[" + origin.getHorizontal().toString() + origin.getVertical().toString() + "]"
+          + " to "
+          + "[" + destination.getHorizontal() + destination.getVertical() + "].");
     return super.applyNextRule(origin, destination, table);
   }
 

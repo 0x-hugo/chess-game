@@ -19,16 +19,17 @@ public abstract class AbstractPiece implements Piece {
     movements = new ArrayList<>();
   }
 
+  @Override
   public boolean hasValidMovements(Coordinate origin, Coordinate destination) {
     for (final Movement movement : movements) {
       if (movement.isValid(origin, destination))
         return true;
     }
 
-    logger.debug("Cannot move from "
+    logger.debug("Cannot move " + getName() + " from "
         + "[" + origin.getHorizontal().toString() + origin.getVertical().toString() + "]"
         + " to "
-        + "[" + destination.getHorizontal() + destination.getVertical() + "]");
+        + "[" + destination.getHorizontal().toString() + destination.getVertical().toString() + "]");
     return false;
   }
 

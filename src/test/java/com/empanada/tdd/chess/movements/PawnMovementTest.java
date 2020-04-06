@@ -21,12 +21,12 @@ import com.empanada.tdd.chess.utils.JsonUtils;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class FirstMovePawnTest extends GenericFirstMove {
+public class PawnMovementTest extends GenericMovementTest {
 
   MockMvc mockMvc;
 
   @Autowired
-  public FirstMovePawnTest(MockMvc mockInstance, ChessController chessController) {
+  public PawnMovementTest(MockMvc mockInstance, ChessController chessController) {
     super(chessController);
     mockMvc = mockInstance;
   }
@@ -42,7 +42,7 @@ public class FirstMovePawnTest extends GenericFirstMove {
   }
 
   @Test
-  public void movePawnOnePosition() throws Exception {
+  public void onePosition() throws Exception {
     final Request validRequest = new Request("D", "2", "D", "3");
 
     mockMvc.perform(post(moveEndpoint)
@@ -53,7 +53,7 @@ public class FirstMovePawnTest extends GenericFirstMove {
   }
 
   @Test
-  public void movePawnTwoPositions() throws Exception {
+  public void twoPositions() throws Exception {
     final Request validRequest = new Request("D", "2", "D", "4");
 
     mockMvc.perform(post(moveEndpoint)
@@ -64,7 +64,7 @@ public class FirstMovePawnTest extends GenericFirstMove {
   }
 
   @Test
-  public void movePawnThreePositions() throws Exception {
+  public void threePositions() throws Exception {
     final Request validRequest = new Request("D", "2", "D", "5");
 
     mockMvc.perform(post(moveEndpoint)

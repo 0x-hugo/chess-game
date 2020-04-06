@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.empanada.tdd.chess.controllers.ChessController;
 import com.empanada.tdd.chess.utils.EndpointURL;
 
-public class GenericFirstMove {
+public class GenericMovementTest {
 
   ChessController chessAPI;
 
@@ -15,7 +15,7 @@ public class GenericFirstMove {
   protected String moveEndpoint = EndpointURL.move.getUrl();
 
   @Autowired
-  public GenericFirstMove(ChessController apiImpl) {
+  public GenericMovementTest(ChessController apiImpl) {
     chessAPI = apiImpl;
   }
 

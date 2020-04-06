@@ -21,12 +21,12 @@ import com.empanada.tdd.chess.utils.JsonUtils;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class FirstMoveBishopTest extends GenericFirstMove {
+public class BishopMovementTest extends GenericMovementTest {
 
   MockMvc mockMvc;
 
   @Autowired
-  public FirstMoveBishopTest(MockMvc mockInstance, ChessController chessController) {
+  public BishopMovementTest(MockMvc mockInstance, ChessController chessController) {
     super(chessController);
     mockMvc = mockInstance;
   }
@@ -50,7 +50,50 @@ public class FirstMoveBishopTest extends GenericFirstMove {
         .content(JsonUtils.toJson(invalidRequest)))
         .andExpect(status().is5xxServerError())
         .andExpect(content().string(containsString("Not able to move Bishop from [F1] to [F3].")));
+  }
 
+  @Test
+  public void upLeftDiagonal() throws Exception {
+    final Request threeSteps = new Request("E", "4", "C", "6");
+
+    mockMvc.perform(post(moveEndpoint)
+        .contentType(HttpUtils.APPLICATION_JSON_UTF8)
+        .content(JsonUtils.toJson(threeSteps)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString(valid_move_msg)));
+  }
+
+  @Test
+  public void upRightDiagonal() throws Exception {
+    final Request threeSteps = new Request("E", "4", "G", "6");
+
+    mockMvc.perform(post(moveEndpoint)
+        .contentType(HttpUtils.APPLICATION_JSON_UTF8)
+        .content(JsonUtils.toJson(threeSteps)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString(valid_move_msg)));
+  }
+
+  @Test
+  public void downRightDiagonal() throws Exception {
+    final Request threeSteps = new Request("G", "6", "E", "4");
+
+    mockMvc.perform(post(moveEndpoint)
+        .contentType(HttpUtils.APPLICATION_JSON_UTF8)
+        .content(JsonUtils.toJson(threeSteps)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString(valid_move_msg)));
+  }
+
+  @Test
+  public void downLeftDiagonal() throws Exception {
+    final Request threeSteps = new Request("E", "4", "C", "2");
+
+    mockMvc.perform(post(moveEndpoint)
+        .contentType(HttpUtils.APPLICATION_JSON_UTF8)
+        .content(JsonUtils.toJson(threeSteps)))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(containsString(valid_move_msg)));
   }
 
 }

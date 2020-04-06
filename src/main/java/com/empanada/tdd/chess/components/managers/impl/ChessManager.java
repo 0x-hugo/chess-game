@@ -61,7 +61,8 @@ public class ChessManager implements Manager {
 
       return Command.of(origin, destination);
     } catch (NumberFormatException | CoordinateException e) {
-      throw new CommandException(OperationStatus.NOT_OK, e.getMessage());
+      logger.debug(e);
+      throw new CommandException(OperationStatus.NOT_OK, "Invalid coordinates.");
     }
   }
 

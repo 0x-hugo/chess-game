@@ -1,7 +1,5 @@
 package com.empanada.tdd.chess.model.table.impl;
 
-import java.util.Arrays;
-
 import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
 
@@ -16,19 +14,11 @@ public class ChessCoordinate implements Coordinate {
 
   public static ChessCoordinate of(Character x, Integer y) throws CoordinateException {
     final Character upperCaseX = Character.toUpperCase(x);
-    final Axis xAxis = Axis.of(ChessCoordinate.horizontal,
-        positionInArray(ChessCoordinate.horizontal, upperCaseX));
-    final Axis yAxis = Axis.of(ChessCoordinate.vertical,
-        positionInArray(ChessCoordinate.vertical, y));
+
+    final Axis xAxis = Axis.of(ChessCoordinate.horizontal, upperCaseX);
+    final Axis yAxis = Axis.of(ChessCoordinate.vertical, y);
 
     return new ChessCoordinate(xAxis, yAxis);
-  }
-
-  private static int positionInArray(Object[] array, final Object value) {
-    final int a = Arrays.asList(array).indexOf(value);
-    if (a == -1)
-      throw new CoordinateException(invalidMsg);
-    return a;
   }
 
   private ChessCoordinate(Axis x, Axis y) {
@@ -56,8 +46,7 @@ public class ChessCoordinate implements Coordinate {
   public boolean equals(Object obj) {
     if (obj instanceof Coordinate) {
       final ChessCoordinate cord = (ChessCoordinate) obj;
-      return this.x.getValue().equals(cord.x.getValue())
-          && (this.y.getValue().equals(cord.y.getValue()));
+      return this.x.equals(cord.x) && (this.y.equals(cord.y));
     }
     return false;
   }
@@ -95,6 +84,16 @@ public class ChessCoordinate implements Coordinate {
   @Override
   public boolean isValid() {
     return x.isValid() && y.isValid();
+  }
+
+  @Override
+  public Object[] getDomainHorizontal() {
+    return horizontal;
+  }
+
+  @Override
+  public Object[] getDomainVertical() {
+    return vertical;
   }
 
 }

@@ -40,4 +40,11 @@ public abstract class AbstractPiece implements Piece {
 
   public abstract String draw();
 
+  protected static int forward(int i) {
+    return i;
+  }
+
+  protected static int backward(int i) {
+    return 0 - i;
+  }
 }

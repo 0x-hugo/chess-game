@@ -4,41 +4,52 @@ import java.util.Arrays;
 
 import org.springframework.util.Assert;
 
+import com.empanada.tdd.chess.shared.exceptions.CoordinateException;
+
 public class Axis {
 
-  private int i = 0;
+  private int positionInDomain = 0;
   Object[] domain;
 
-  public static Axis of(Object[] validAxes, Integer position) {
+  public static Axis of(Object[] validAxes, Object objPosition) {
+    final int position = positionInArray(validAxes, objPosition);
     return new Axis(validAxes, position);
+  }
+
+  private static int positionInArray(Object[] validAxes, final Object objPosition) {
+    final int a = Arrays.asList(validAxes).indexOf(objPosition);
+    if (a == -1)
+      throw new CoordinateException(
+          "invalid position " + objPosition + " in array:[" + Arrays.toString(validAxes) + "]");
+    return a;
   }
 
   private Axis(Object[] validAxes, Integer position) {
     this.domain = validAxes;
-    this.i = position;
+    this.positionInDomain = position;
   }
 
-  public Object getValue() {
-    final Object a = Arrays.asList(domain).get(this.i);
-    Assert.notNull(a, "position " + i + " of " + Arrays.toString(domain) + " is not valid ");
-    return a;
+  public Object getValueInDomain() {
+    final Object valueInDomain = Arrays.asList(domain).get(this.positionInDomain);
+    Assert.notNull(valueInDomain, "position " + positionInDomain + " of " + Arrays.toString(domain) + " is not valid ");
+    return valueInDomain;
   }
 
   boolean isValid() {
-    return (i >= 0 && i < Arrays.asList(domain).size());
+    return (positionInDomain >= 0 && positionInDomain < Arrays.asList(domain).size());
   }
 
   public void increment(int i) {
-    this.i += i;
+    this.positionInDomain += i;
   }
 
   public void decrement(int i) {
-    this.i -= i;
+    this.positionInDomain -= i;
   }
 
   @Override
   public String toString() {
-    return this.getValue().toString();
+    return this.getValueInDomain().toString();
   }
 
   @Override
@@ -46,7 +57,7 @@ public class Axis {
     final int prime = 31;
     int result = 1;
     result = prime * result + Arrays.deepHashCode(domain);
-    result = prime * result + i;
+    result = prime * result + positionInDomain;
     return result;
   }
 
@@ -58,10 +69,8 @@ public class Axis {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    final Axis other = (Axis) obj;
-    if (this.domain == other.domain && this.i == other.i)
-      return false;
-    return true;
+    final Axis otherAxis = (Axis) obj;
+    return (this.domain == otherAxis.domain && this.positionInDomain == otherAxis.positionInDomain);
   }
 
 }

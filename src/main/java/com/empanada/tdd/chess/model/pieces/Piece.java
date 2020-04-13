@@ -1,11 +1,12 @@
 package com.empanada.tdd.chess.model.pieces;
 
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
+import com.empanada.tdd.chess.model.table.Coordinate;
 
-public abstract class Piece {
+public interface Piece {
 
-  public abstract String draw();
+  void setUpValidMoves();
 
-  public abstract boolean canMove(ChessCoordinate chessPosition, ChessCoordinate destination);
+  boolean hasValidMovements(Coordinate origin, Coordinate destination);
 
+  String getName();
 }

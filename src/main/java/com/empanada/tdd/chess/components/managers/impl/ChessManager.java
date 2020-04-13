@@ -7,12 +7,11 @@ import org.springframework.stereotype.Component;
 import com.empanada.tdd.chess.components.games.Game;
 import com.empanada.tdd.chess.components.games.impl.ChessGame;
 import com.empanada.tdd.chess.components.managers.Manager;
-import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
 import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
+import com.empanada.tdd.chess.model.table.impl.ChessCoordinate;
 import com.empanada.tdd.chess.model.table.impl.ChessTable;
 import com.empanada.tdd.chess.shared.ExecutionResult;
-import com.empanada.tdd.chess.shared.ExecutionStatus;
 import com.empanada.tdd.chess.shared.OperationResult;
 import com.empanada.tdd.chess.shared.OperationStatus;
 import com.empanada.tdd.chess.shared.Request;
@@ -28,10 +27,10 @@ public class ChessManager implements Manager {
 
   @Override
   public OperationResult newGame() {
-    game = ChessGame.of(new ChessTable(), new ChessRuleCheckmate());
+    game = ChessGame.of(new ChessTable());
     game = game.initialize();
     if (game.hasNotStarted())
-      return OperationResult.of(OperationStatus.INVALID_INIT_GAME);
+      return OperationResult.of(OperationStatus.NOT_OK);
     return OperationResult.of(OperationStatus.OK);
   }
 
@@ -43,41 +42,28 @@ public class ChessManager implements Manager {
   @Override
   public OperationResult move(Request request) {
     if (game == null)
-      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED, "Game has not been created.").toOperationResult();
+      return OperationResult.of(OperationStatus.NOT_OK, "Chess game has not been started.");
 
     try {
       final Command command = toCommand(request);
       final ExecutionResult execStatus = game.execute(command);
       return execStatus.toOperationResult();
     } catch (final CommandException exception) {
-      // TODO: Add which Position caused this exception for info
-      logger.info(OperationStatus.INVALID_COORDINATE, exception);
-      return OperationResult.of(exception.getStatus());
+      logger.info(OperationStatus.NOT_OK, exception); // TODO: Add Position info for this exception
+      return OperationResult.of(exception.getStatus(), exception.getMessage());
     }
   }
 
   private Command toCommand(Request request) throws CommandException {
     try {
-      validateCordinatesLength(request);
-
-      final Character xOrig = request.getxOrig().charAt(0);
-      final Character xDest = request.getxDest().charAt(0);
-      final Integer yOrig = Integer.parseInt(request.getyOrig());
-      final Integer yDest = Integer.parseInt(request.getyDest());
-
-      final ChessCoordinate origin = ChessCoordinate.of(xOrig, yOrig);
-      final ChessCoordinate destination = ChessCoordinate.of(xDest, yDest);
+      final Coordinate origin = ChessCoordinate.buildCoordinate(request.getxOrig(), request.getyOrig());
+      final Coordinate destination = ChessCoordinate.buildCoordinate(request.getxDest(), request.getyDest());
 
       return Command.of(origin, destination);
     } catch (NumberFormatException | CoordinateException e) {
-      throw new CommandException(OperationStatus.INVALID_COORDINATE);
+      logger.debug(e);
+      throw new CommandException(OperationStatus.NOT_OK, "Invalid coordinates.");
     }
   }
 
-  private void validateCordinatesLength(Request request) throws CoordinateException {
-    if (request.getxOrig().length() != 1 || request.getxDest().length() != 1 ||
-        request.getyOrig().length() != 1 || request.getyDest().length() != 1) {
-      throw new CoordinateException(OperationStatus.INVALID_COORDINATE);
-    }
-  }
 }

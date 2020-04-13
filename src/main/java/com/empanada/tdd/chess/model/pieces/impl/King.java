@@ -1,12 +1,14 @@
 package com.empanada.tdd.chess.model.pieces.impl;
 
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
-import com.empanada.tdd.chess.model.pieces.Piece;
-import com.empanada.tdd.chess.model.pieces.moves.DiagonalMove;
-import com.empanada.tdd.chess.model.pieces.moves.HorizontalMove;
-import com.empanada.tdd.chess.model.pieces.moves.VerticalMove;
+import com.empanada.tdd.chess.model.pieces.AbstractPiece;
+import com.empanada.tdd.chess.model.pieces.moves.Movement;
+import com.empanada.tdd.chess.model.pieces.moves.impl.DiagonalMove;
+import com.empanada.tdd.chess.model.pieces.moves.impl.HorizontalMove;
+import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
-public class King extends Piece implements DiagonalMove, VerticalMove, HorizontalMove {
+public class King extends AbstractPiece {
+
+  private static final String name = "King";
 
   @Override
   public String draw() {
@@ -14,18 +16,23 @@ public class King extends Piece implements DiagonalMove, VerticalMove, Horizonta
   }
 
   @Override
-  public boolean canMove(ChessCoordinate chessPosition, ChessCoordinate destination) {
-    return true;
+  public void setUpValidMoves() {
+    super.addValidMove(Movement.of(HorizontalMove.withSteps(forward(1))));
+    super.addValidMove(Movement.of(HorizontalMove.withSteps(backward(1))));
+    super.addValidMove(Movement.of(VerticalMove.withSteps(forward(1))));
+    super.addValidMove(Movement.of(VerticalMove.withSteps(backward(1))));
+    super.addValidMove(Movement.of(DiagonalMove.withSteps(forward(1))));
+    super.addValidMove(Movement.of(DiagonalMove.withSteps(backward(1))));
   }
 
   @Override
-  public int maxForward() {
-    return 1;
+  public String getName() {
+    return name;
   }
 
   @Override
-  public int maxBackward() {
-    return 1;
+  public String toString() {
+    return getName();
   }
 
 }

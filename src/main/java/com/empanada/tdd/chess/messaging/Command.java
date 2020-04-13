@@ -1,15 +1,17 @@
 package com.empanada.tdd.chess.messaging;
 
+import com.empanada.tdd.chess.model.table.Coordinate;
+
 public class Command {
 
-  private ChessCoordinate origin;
-  private ChessCoordinate destination;
+  private Coordinate origin;
+  private Coordinate destination;
 
-  public static Command of(ChessCoordinate origin, ChessCoordinate destination) {
+  public static Command of(Coordinate origin, Coordinate destination) {
     return new Command(origin, destination);
   }
 
-  private Command(ChessCoordinate origin, ChessCoordinate destination) {
+  private Command(Coordinate origin, Coordinate destination) {
     super();
     this.origin = origin;
     this.destination = destination;
@@ -18,19 +20,19 @@ public class Command {
   private Command() {
   }
 
-  public ChessCoordinate getOrigin() {
+  public Coordinate getOrigin() {
     return origin;
   }
 
-  public ChessCoordinate getDestination() {
+  public Coordinate getDestination() {
     return destination;
   }
 
-  public void setDestination(ChessCoordinate destination) {
+  public void setDestination(Coordinate destination) {
     this.destination = destination;
   }
 
-  public void setOrigin(ChessCoordinate origin) {
+  public void setOrigin(Coordinate origin) {
     this.origin = origin;
   }
 

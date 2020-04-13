@@ -1,12 +1,10 @@
 package com.empanada.tdd.chess.model.pieces.impl;
 
 import com.empanada.tdd.chess.model.pieces.AbstractPiece;
-import com.empanada.tdd.chess.model.pieces.moves.Movement;
-import com.empanada.tdd.chess.model.pieces.moves.impl.VerticalMove;
 
-public class Bishop extends AbstractPiece {
+public class NullPiece extends AbstractPiece {
 
-  private static final String name = "Bishop";
+  private final String name = "NullPiece";
 
   @Override
   public String draw() {
@@ -15,7 +13,6 @@ public class Bishop extends AbstractPiece {
 
   @Override
   public void setUpValidMoves() {
-    super.addValidMove(Movement.of(VerticalMove.withAnySteps()));
   }
 
   @Override

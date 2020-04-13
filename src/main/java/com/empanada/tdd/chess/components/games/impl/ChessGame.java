@@ -2,30 +2,30 @@ package com.empanada.tdd.chess.components.games.impl;
 
 import com.empanada.tdd.chess.components.games.Game;
 import com.empanada.tdd.chess.components.games.GameStatus;
-import com.empanada.tdd.chess.components.rules.AbstractRule;
+import com.empanada.tdd.chess.components.rules.Rule;
 import com.empanada.tdd.chess.components.rules.RuleStatus;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheck;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleCheckmate;
 import com.empanada.tdd.chess.components.rules.impl.ChessRulePieceMovement;
 import com.empanada.tdd.chess.components.rules.impl.ChessRuleStalemate;
 import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.model.table.Table;
 import com.empanada.tdd.chess.shared.ExecutionResult;
 import com.empanada.tdd.chess.shared.ExecutionStatus;
 
 public class ChessGame implements Game {
 
-  Table table;
-  AbstractRule ruleChain;
   GameStatus state;
+  Rule rules;
+  Table table;
 
-  public static ChessGame of(Table table, AbstractRule ruleChain) {
-    return new ChessGame(table, ruleChain);
+  public static ChessGame of(Table table) {
+    return new ChessGame(table);
   }
 
-  private ChessGame(Table table, AbstractRule ruleChain) {
+  private ChessGame(Table table) {
     this.table = table;
-    this.ruleChain = ruleChain;
     this.state = GameStatus.NOT_STARTED;
   }
 
@@ -50,7 +50,7 @@ public class ChessGame implements Game {
   }
 
   private void setupRules() {
-    ruleChain = ruleChain.addRule(new ChessRuleCheckmate())
+    rules = new ChessRuleCheckmate()
         .addRule(new ChessRuleStalemate())
         .addRule(new ChessRuleCheck())
         .addRule(new ChessRulePieceMovement());
@@ -59,16 +59,20 @@ public class ChessGame implements Game {
 
   @Override
   public ExecutionResult execute(Command command) {
-    if (this.hasNotStarted())
-      return ExecutionResult.of(ExecutionStatus.GAME_NOT_STARTED);
+    final Coordinate origin = command.getOrigin();
+    final Coordinate destination = command.getDestination();
 
-    final RuleStatus status = ruleChain.applyRule(command, table);
+    if (table.isOutOfBounds(origin) || table.isOutOfBounds(destination))
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, "Invalid coordinates.");
+    if (origin.equals(destination))
+      return ExecutionResult.of(ExecutionStatus.NOT_OK, "same coordinates");
+
+    // Case of King get (checked or mate) after a piece moves
+    final RuleStatus status = rules.apply(origin, destination, table);
     if (status.isInvalid())
       return ExecutionResult.of(ExecutionStatus.NOT_OK, status.getMessage());
 
-    final ExecutionResult moveResult = table.move(command);
-
-    return moveResult;
+    return table.move(origin, destination);
 
   }
 

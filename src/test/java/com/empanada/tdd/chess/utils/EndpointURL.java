@@ -1,4 +1,4 @@
-package com.empanada.tdd.chess.controllers;
+package com.empanada.tdd.chess.utils;
 
 interface Base {
   String home = "/chess";

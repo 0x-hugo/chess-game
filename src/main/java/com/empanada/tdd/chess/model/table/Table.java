@@ -1,7 +1,5 @@
 package com.empanada.tdd.chess.model.table;
 
-import com.empanada.tdd.chess.messaging.ChessCoordinate;
-import com.empanada.tdd.chess.messaging.Command;
 import com.empanada.tdd.chess.model.pieces.Piece;
 import com.empanada.tdd.chess.shared.ExecutionResult;
 
@@ -9,14 +7,14 @@ public interface Table {
 
   void init();
 
-  Piece getPieceAt(ChessCoordinate position);
+  Piece getPieceAt(Coordinate position);
 
-  void killPiece(ChessCoordinate position);
+  void killPiece(Coordinate position);
 
-  void movePiece(ChessCoordinate origin, ChessCoordinate destination);
+  void eat(Coordinate origin, Coordinate destination);
 
-  ExecutionResult move(Command command);
+  ExecutionResult move(Coordinate origin, Coordinate destination);
 
-  boolean canMove(ChessCoordinate origin, ChessCoordinate destination);
+  boolean isOutOfBounds(Coordinate position);
 
 }

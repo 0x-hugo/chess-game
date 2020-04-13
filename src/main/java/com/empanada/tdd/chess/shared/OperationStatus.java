@@ -3,13 +3,14 @@ package com.empanada.tdd.chess.shared;
 public enum OperationStatus {
   // TODO: refactor to properties
   OK(200, "OK."),
-  INVALID_MOVE(402, "Invalid move."),
-  INVALID_COORDINATE(406, "Invalid coordinates."),
-  INVALID_INIT_GAME(402, "Game has not been created."),
-  ;
+  NOT_OK(500);
 
   private Integer status_code;
   private String message;
+
+  private OperationStatus(int code) {
+    status_code = code;
+  }
 
   OperationStatus(int code, String message) {
     status_code = code;

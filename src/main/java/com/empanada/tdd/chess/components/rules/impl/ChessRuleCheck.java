@@ -2,16 +2,16 @@ package com.empanada.tdd.chess.components.rules.impl;
 
 import com.empanada.tdd.chess.components.rules.AbstractRule;
 import com.empanada.tdd.chess.components.rules.RuleStatus;
-import com.empanada.tdd.chess.messaging.Command;
+import com.empanada.tdd.chess.model.table.Coordinate;
 import com.empanada.tdd.chess.model.table.Table;
 
 public class ChessRuleCheck extends AbstractRule {
 
   @Override
-  public RuleStatus applyRule(Command command, Table table) {
+  public RuleStatus apply(Coordinate origin, Coordinate destination, Table table) {
     return (invalidMove())
         ? RuleStatus.invalid("checkmage.")
-        : applyNextRule(command, table);
+        : applyNextRule(origin, destination, table);
   }
 
   private boolean invalidMove() {

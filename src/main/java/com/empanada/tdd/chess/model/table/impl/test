@@ -1,0 +1,14 @@
+hello carl -> h1
+inside dive and p -> div, p
+only inside div -> div
+
+inside div div p -> div, p, p
+inside div div -> div, div
+
+
+Llevar un registro de todas los tags donde :
+
+tag =  startWith(<) && endWith(>);
+
+String data
+when (!tag)
